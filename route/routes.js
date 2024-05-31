@@ -1,5 +1,6 @@
 import express from 'express';
-import {registerUser, loginUser} from '../controllers/userController.js'
+import {registerUser, loginUser, getUser} from '../controllers/userController.js';
+import Auth from '../middleware/auth.js';
 
 
 
@@ -13,5 +14,6 @@ router.get('/', (req, res) => {
 // User routes
 router.post("/users/register", registerUser);
 router.post("/users/login", loginUser);
+router.get("/users/profile", Auth, getUser);
 
 export default router;
