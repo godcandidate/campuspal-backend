@@ -1,5 +1,7 @@
 import { collection, collectionGroup, addDoc, doc, setDoc, updateDoc, getDoc, getDocs, query, where , limit} from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import jwt from 'jsonwebtoken';
+
 import db from "../firestore.js";
 import 'dotenv/config';
 
@@ -38,4 +40,31 @@ export async function  registerUser(req, res){
         console.log(error);
         return res.status(500).send({ error: "User not registered" });
     }
+};
+
+// User login
+export async function loginUser(req, res){
+    try {
+        const {email, password} = req.body;
+    
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Create a JWT token
+        const token = jwt.sign(
+            {
+                userId: user.uid
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: "24h" }
+        );
+       
+        return res.status(200).send({ msg: "User logged in successfully", email,
+        token});
+        
+        
+    } catch (error) {
+        return res.status(500).send({ error: "Login failed, invalid user details" });
+    }
+
 };
