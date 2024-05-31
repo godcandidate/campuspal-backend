@@ -68,3 +68,25 @@ export async function loginUser(req, res){
     }
 
 };
+
+// Get user profile
+export async function getUser(req, res){
+    try {
+        // Get user data and id
+        const {userId} = req.user;
+        const userRef = doc(db, "users", userId);
+
+        const userSnap = await getDoc(userRef);
+
+        // User exists
+        if (userSnap.exists()) {
+            return res.status(200).send(userSnap.data());
+        } else {
+            return res.status(404).send({ error: "User does not exists" });
+        }
+        
+        
+    } catch (error) {
+        return res.status(500).send({ error: "Retrieving user detail failes" });
+    }  
+}
