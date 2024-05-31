@@ -90,3 +90,22 @@ export async function getUser(req, res){
         return res.status(500).send({ error: "Retrieving user detail failes" });
     }  
 }
+
+// Update user profile
+export async function updateUser(req, res){
+    try {
+
+        // Get user data and id 
+        const userData = req.body;
+        const {userId} = req.user;
+        
+        const userRef = doc(db, "users", userId);
+        
+        await updateDoc(userRef, 
+                userData);
+        return res.status(200).send({ msg: "User details updated successfully", userData  });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ error: "User update failed" });
+    }
+}
