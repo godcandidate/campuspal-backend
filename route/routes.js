@@ -1,5 +1,5 @@
 import express from 'express';
-import {registerUser} from '../controllers/userController.js'
+import {registerUser, loginUser} from '../controllers/userController.js'
 
 
 
@@ -12,5 +12,6 @@ router.get('/', (req, res) => {
 
 // User routes
 router.post("/users/register", registerUser);
+router.post("/users/login", loginUser);
 
 export default router;
