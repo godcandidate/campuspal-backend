@@ -1,8 +1,12 @@
 import express from 'express';
+import multer from "multer";
 import {registerUser, loginUser, getUser, updateUser} from '../controllers/userController.js';
+import {uploadUserPicture} from '../controllers/assetController.js';
+
 import Auth from '../middleware/auth.js';
 
-
+// handles files upload
+const upload = multer({storage: multer.memoryStorage()});
 
 const router = express.Router();
 
@@ -16,5 +20,10 @@ router.post("/users/register", registerUser);
 router.post("/users/login", loginUser);
 router.get("/users/profile", Auth, getUser);
 router.put("/users/update", Auth, updateUser);
+
+
+//Asset routes
+router.post("/users/upload-picture", Auth, upload.single('profilePicture'), uploadUserPicture);
+
 
 export default router;
