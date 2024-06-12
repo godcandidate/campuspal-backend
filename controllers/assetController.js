@@ -55,6 +55,6 @@ export async function uploadUserPicture(req, res) {
       return res.status(200).send({ msg: "Profile image uploaded successfully" });
     } catch (error) {
       console.error(error);
-      return res.status(500).send({ error: "Image upload failed" });
+      return res.status(500).send({ error: "Uploading image to firebase storage failed" });
     }
   }
