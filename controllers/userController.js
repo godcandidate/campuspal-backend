@@ -87,7 +87,7 @@ export async function getUser(req, res){
         
         
     } catch (error) {
-        return res.status(500).send({ error: "Retrieving user detail failes" });
+        return res.status(500).send({ error: "Retrieving user detail from firebase failed" });
     }  
 }
 
@@ -106,6 +106,6 @@ export async function updateUser(req, res){
         return res.status(200).send({ msg: "User details updated successfully", userData  });
     } catch (error) {
         console.log(error);
-        return res.status(500).send({ error: "User update failed" });
+        return res.status(500).send({ error: "User update on firebase failed" });
     }
 }
