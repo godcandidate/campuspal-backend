@@ -72,7 +72,7 @@ try {
  *          "programme" : "Food Science and Nutrition"
  *         }
  *      responses:
- *        201:
+ *        200:
  *          description: User Registered successfully
  *        400:
  *          description: Email already in use 
@@ -101,10 +101,12 @@ try {
  *          "password" : "#special"
  *         }
  *      responses:
- *        201:
- *          description: Success
+ *        200:
+ *          description: User logged in successfully
  *        404:
  *          description: User not found
+ *        500:
+ *          description: Login failed, invalid user details
  * 
  */
 //Get user details
@@ -127,8 +129,15 @@ try {
  *     responses:
  *       200:
  *         description: Success
+ *       401:
+ *         description: Missing user token
+ *       402:
+ *          description:User Authentication Failed
  *       404:
- *         description: User not found
+ *         description: User does not exists
+ *       500:
+ *         description: Retrieving user detail from firebase failed
+ * 
  */
 
 //Update
@@ -157,8 +166,12 @@ try {
  *               "name": "Yuji Itadori"
  *               }
  *      responses:
- *        201:
- *          description: Success
+ *        200:
+ *          description: User details updated successfully
+ *        401:
+ *         description: Missing user token
+ *        402:
+ *          description: User Authentication Failed
  *        500:
  *          description: User update failed
  * 
@@ -189,10 +202,14 @@ try {
  *         required: true
  *         description: The image file to upload( should be less than 5mb)
  *     responses:
- *       201:
+ *       200:
  *         description: Image uploaded successfully
  *       400:
  *         description: No image file uploaded
+ *       401:
+ *         description: Missing user token
+ *       402:
+ *         description: User Authentication Failed
  *       500:
  *         description: Internal server error
  *       501:
