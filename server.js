@@ -109,28 +109,24 @@ try {
  *          description: Login failed, invalid user details
  * 
  */
-//Get user details
 /**
- * @swagger
+ * @swagger 
  * /users/profile:
- *   get:
- *     tags:
- *     - User APIs
- *     summary: Get user  details
- *     description: User profile 
- *     responses:
- *       200:
- *         description: Success
- *       401:
- *         description: Missing user token
- *       402:
- *          description:User Authentication Failed
- *       404:
- *         description: User does not exists
- *       500:
- *         description: Retrieving user detail from firebase failed
+ *    get:
+ *      tags:
+ *      - User APIs
+ *      summary: Get user profile
+ *      description: User profile
+ *      responses:
+ *        200:
+ *          description: User log out successfully
+ *        403:
+ *          description: No user logged in
+ *        500:
+ *          description: Internal error 
  * 
  */
+
 
 //Update
 /**
