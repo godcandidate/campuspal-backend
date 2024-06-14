@@ -118,14 +118,6 @@ try {
  *     - User APIs
  *     summary: Get user  details
  *     description: User profile 
- *     security:
- *     - bearerAuth: []
- *     parameters:
- *     - name: Authorization
- *       in: header
- *       type: string
- *       required: true
- *       description: Bearer token for authentication
  *     responses:
  *       200:
  *         description: Success
