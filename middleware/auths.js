@@ -5,7 +5,6 @@ export default function auths(req, res, next){
     try {
       const user = auth.currentUser;
       if (user) {
-        console.log(user.email);
           req.user = user;
         next();
       } else {
