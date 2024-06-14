@@ -177,6 +177,25 @@ try {
  * 
  */
 
+// log out user
+/**
+ * @swagger 
+ * /users/logout:
+ *    post:
+ *      tags:
+ *      - User APIs
+ *      summary: Log out user
+ *      description: Logging out a user
+ *      responses:
+ *        200:
+ *          description: User log out successfully
+ *        403:
+ *          description: No user logged in
+ *        500:
+ *          description: Internal error 
+ * 
+ */
+
 //Upload a video
 /**
  * @swagger
