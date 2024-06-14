@@ -73,7 +73,7 @@ export async function loginUser(req, res){
 export async function getUser(req, res){
     try {
         // Get user data and id
-        const {userId} = req.user;
+        const userId = req.user.uid;
         const userRef = doc(db, "users", userId);
 
         const userSnap = await getDoc(userRef);
@@ -81,12 +81,13 @@ export async function getUser(req, res){
         // User exists
         if (userSnap.exists()) {
             return res.status(200).send(userSnap.data());
-        } else {
-            return res.status(404).send({ error: "User does not exists" });
         }
+        return res.status(404).send({ error: "User does not exists" });
+        
         
         
     } catch (error) {
+        console.log(error);
         return res.status(500).send({ error: "Retrieving user detail from firebase failed" });
     }  
 }
@@ -109,3 +110,18 @@ export async function updateUser(req, res){
         return res.status(500).send({ error: "User update on firebase failed" });
     }
 }
+// User logout
+export async function logoutUser(req, res) {
+    try {
+      if (!auth.currentUser) {
+        return res.status(403).send({ msg: "No user logged in" });
+      }
+  
+      await signOut(auth); // Wait for signOut to complete
+  
+      return res.status(200).send({ msg: "User logged out successfully" });
+    } catch (error) {
+      console.error('Logout error:', error);
+      return res.status(500).send({ error: "Logout failed" });
+    }
+  }
