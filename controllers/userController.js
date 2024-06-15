@@ -50,17 +50,28 @@ export async function loginUser(req, res){
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // Create a JWT token
-        const token = jwt.sign(
+
+        // Create a Access token
+        const accesstoken = jwt.sign(
             {
                 userId: user.uid
             },
-            process.env.JWT_SECRET,
+            process.env.JWT_ACCESS_TOKEN,
+            { expiresIn: "1h" }
+        );
+
+        // Create a Access token
+        const refreshtoken = jwt.sign(
+            {
+                userId: user.uid
+            },
+            process.env.JWT_REFRESH_TOKEN,
             { expiresIn: "24h" }
         );
        
+       
         return res.status(200).send({ msg: "User logged in successfully", email,
-        token});
+        accesstoken});
         
         
     } catch (error) {
@@ -73,7 +84,7 @@ export async function loginUser(req, res){
 export async function getUser(req, res){
     try {
         // Get user data and id
-        const userId = req.user.uid;
+        const {userId} = req.user;
         const userRef = doc(db, "users", userId);
 
         const userSnap = await getDoc(userRef);
@@ -113,8 +124,20 @@ export async function updateUser(req, res){
 // User logout
 export async function logoutUser(req, res) {
     try {
-      if (!auth.currentUser) {
-        return res.status(403).send({ msg: "No user logged in" });
+  
+      return res.status(200).send({ msg: "User logged out successfully" });
+    } catch (error) {
+
+      return res.status(500).send({ error: "Logout failed" });
+    }
+  }
+
+// User logout
+export async function refreshtoken(req, res, next ) {
+    try {
+        const refreshToken = req.body;
+        if (!refreshToken) {
+        return res.status(403).send({ msg: "No refresh token" });
       }
   
       await signOut(auth); // Wait for signOut to complete
