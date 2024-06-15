@@ -4,7 +4,6 @@ import {registerUser, loginUser, getUser, updateUser, logoutUser} from '../contr
 import {uploadUserPicture} from '../controllers/assetController.js';
 
 import Auth from '../middleware/auth.js';
-import auths from '../middleware/auths.js';
 
 // handles files upload
 const upload = multer({storage: multer.memoryStorage()});
@@ -19,7 +18,7 @@ router.get('/', (req, res) => {
 // User routes
 router.post("/users/register", registerUser);
 router.post("/users/login", loginUser);
-router.get("/users/profile", auths, getUser);
+router.get("/users/profile", Auth, getUser);
 router.put("/users/update", Auth, updateUser);
 router.post("/users/logout", logoutUser);
 
