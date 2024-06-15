@@ -18,13 +18,21 @@ export default async function Auth(req, res, next){
         }
       
         // Retrieve the user details for the logged-in user
-        const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
+        const decodedToken = await jwt.verify(token, process.env.JWT_ACCESS_TOKEN);
       
         req.user = decodedToken;
       
         next()
       } catch (error) {
-        res.status(402).json({ error: "User Authentication Failed, invalid token" });
+        let msg = 'User Authentication Failed, invalid token';
+        console.log(error);
+        if (error.name === 'JsonWebTokenError'){
+        }
+        else{
+            msg = error.message;
+        }
+        
+        res.status(402).json({ error: msg });
       }
       
 }
