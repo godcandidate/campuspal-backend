@@ -331,3 +331,32 @@ try {
  *          description: User update failed
  * 
  */
+
+//Remove
+/**
+ * @swagger 
+ * /organizers/remove:
+ *    post:
+ *      tags:
+ *      - Organizer APIs
+ *      summary: Delete organizer account
+ *      description: Deleting organizer account
+ *      security:
+ *       - bearerAuth: []
+ *      parameters:
+ *      - name: Authorization
+ *        in: header
+ *        type: string
+ *        required: true
+ *        description: Bearer token for authentication
+ *      responses:
+ *        200:
+ *          description: Organizer account removed successfully
+ *        401:
+ *         description: Missing user token
+ *        402:
+ *          description: User Authentication Failed
+ *        500:
+ *          description: Organizer account deletion failed
+ * 
+ */
