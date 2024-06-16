@@ -294,3 +294,40 @@ try {
  *          description: Internal server error
  * 
  */
+
+//Update
+/**
+ * @swagger 
+ * /organizers/update:
+ *    put:
+ *      tags:
+ *      - Organizer APIs
+ *      summary: Modify organizer data
+ *      description: Changing organizer data
+ *      security:
+ *       - bearerAuth: []
+ *      parameters:
+ *      - name: Authorization
+ *        in: header
+ *        type: string
+ *        required: true
+ *        description: Bearer token for authentication
+ *      - name: Update user data
+ *        description: Modify or add to data
+ *        in: body
+ *        type: string
+ *        required: false
+ *        example: {
+ *               "name": "PENSA-KNUST"
+ *               }
+ *      responses:
+ *        200:
+ *          description: User details updated successfully
+ *        401:
+ *         description: Missing user token
+ *        402:
+ *          description: User Authentication Failed
+ *        500:
+ *          description: User update failed
+ * 
+ */
