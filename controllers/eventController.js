@@ -51,3 +51,23 @@ export async function getOrganizer(req, res){
         return res.status(500).send({ error: "Retrieving organizer details from firebase failed" });
     }  
 }
+
+//update organizer details
+// Update user profile
+export async function updateOrganizer(req, res){
+    try {
+
+        // Get user data and id 
+        const userData = req.body;
+        const {userId} = req.user;
+        
+        const userRef = doc(db, "organizers", userId);
+        
+        await updateDoc(userRef, 
+                userData);
+        return res.status(200).send({ msg: "Organizer details updated successfully", userData  });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ error: "Organizer update on firebase failed" });
+    }
+}
