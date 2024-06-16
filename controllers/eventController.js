@@ -2,7 +2,7 @@ import { collection, arrayUnion, addDoc, doc, setDoc, updateDoc, getDoc, getDocs
 import db from "../firestore.js";
 
 
-// Get user profile
+// Register as an organizer
 export async function registerOrganizer(req, res){
     try {
         // Get user data and id
@@ -15,19 +15,39 @@ export async function registerOrganizer(req, res){
         const newRole = "organizer";
         await updateDoc(userRef, {
             "roles": arrayUnion(newRole)
-          })
+          });
 
-        // add user to organizers firestore
-        await addDoc(collection(db, "organizers"), {
-            userId : userId,
+        const organizerData = {
             name: name,
             description: description
-        });
-       
+        };
+        
+        // add user to organizers firestore
+        await setDoc(doc(db, "organizers", userId),organizerData);
         return res.status(200).send({ msg: "User signed up as organizer successfully" });
 
     } catch (error) {
         console.log(error);
         return res.status(500).send({ error: "Signing user up as an organizer to firebase failed" });
+    }  
+}
+
+// Get user profile
+export async function getOrganizer(req, res){
+    try {
+        // Get organizer data and id
+        const {userId} = req.user;
+        const userRef = doc(db, "organizers", userId);
+
+        const userSnap = await getDoc(userRef);
+
+        // Organizer exists
+        if (userSnap.exists()) {
+            return res.status(200).send(userSnap.data());
+        }
+        return res.status(404).send({ error: "Organizer does not exists" }); 
+        
+    } catch (error) {
+        return res.status(500).send({ error: "Retrieving organizer details from firebase failed" });
     }  
 }
