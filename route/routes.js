@@ -1,6 +1,7 @@
 import express from 'express';
 import multer from "multer";
 import {registerUser, loginUser, getUser, updateUser, logoutUser} from '../controllers/userController.js';
+import { registerOrganizer } from '../controllers/eventController.js';
 import {uploadUserPicture} from '../controllers/assetController.js';
 
 import Auth from '../middleware/auth.js';
@@ -25,6 +26,10 @@ router.post("/users/logout", logoutUser);
 
 //Asset routes
 router.post("/users/upload-picture", Auth, upload.single('profilePicture'), uploadUserPicture);
+
+
+//Organizers route
+router.post("/organizers/register", Auth, registerOrganizer);
 
 
 export default router;
