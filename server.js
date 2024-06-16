@@ -192,7 +192,7 @@ try {
  * 
  */
 
-//Upload a video
+//Upload a profile
 /**
  * @swagger
  * /users/upload-picture:
@@ -229,4 +229,41 @@ try {
  *         description: Internal server error
  *       501:
  *         description: Failed uploading image to firebase storage
+ */
+
+/* ORGANIZER API */
+// register organizer
+/**
+ * @swagger 
+ * /organizers/register:
+ *    post:
+ *      tags:
+ *      - Organizer APIs
+ *      summary: Register user as event organizer
+ *      description: Registering user as organizer
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *      - name: Organizer Credentials
+ *        description: Enter user data
+ *        in: body
+ *        type: string
+ *        required: true
+ *        example: {
+ *          "name" : "SCC",
+ *          "description" : "The Student Chaplaincy Council of KNUST"
+ *         }
+ *      responses:
+ *        200:
+ *          description: User signed up as organizer successfully
+ *        400:
+ *          description: Email already in use 
+ *        500:
+ *          description: Signing user up as an organizer to firebase failed
+ * 
  */
