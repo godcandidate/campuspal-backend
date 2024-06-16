@@ -109,6 +109,7 @@ try {
  *          description: Login failed, invalid user details
  * 
  */
+//Get user profile
 /**
  * @swagger 
  * /users/profile:
@@ -134,7 +135,6 @@ try {
  *          description: Internal error 
  * 
  */
-
 
 //Update
 /**
@@ -232,15 +232,15 @@ try {
  */
 
 /* ORGANIZER API */
-// register organizer
+//Register an organizer
 /**
- * @swagger 
+ * @swagger
  * /organizers/register:
- *    post:
- *      tags:
- *      - Organizer APIs
- *      summary: Register user as event organizer
- *      description: Registering user as organizer
+ *   post:
+ *     tags:
+ *       - Organizer APIs
+ *     summary: Register user as event organizer
+ *     description: Registering user as organizer
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -249,21 +249,48 @@ try {
  *         type: string
  *         required: true
  *         description: Bearer token for authentication
- *      - name: Organizer Credentials
- *        description: Enter user data
- *        in: body
+ *       - in: body
+ *         name: Organizer Credentials
+ *         type: string
+ *         required: true
+ *         example: {
+ *           "name" : "SCC",
+ *           "description" : "The Student Chaplaincy Council of KNUST"
+ *          }
+ *     responses:
+ *       200:
+ *         description: User signed up as organizer successfully
+ *       401:
+ *         description: Missing user token
+ *       402:
+ *         description: User Authentication Failed
+ *       500:
+ *         description: Internal server error
+ */
+/**
+ * @swagger 
+ * /organizers/profile:
+ *    get:
+ *      tags:
+ *      - Organizer APIs
+ *      summary: Get Organizer  profile
+ *      description: Organizer  profile
+ *      security:
+ *       - bearerAuth: []
+ *      parameters:
+ *      - name: Authorization
+ *        in: header
  *        type: string
  *        required: true
- *        example: {
- *          "name" : "SCC",
- *          "description" : "The Student Chaplaincy Council of KNUST"
- *         }
+ *        description: Bearer token for authentication
  *      responses:
  *        200:
- *          description: User signed up as organizer successfully
- *        400:
- *          description: Email already in use 
+ *          description: Organizer data retreived successfully
+ *        401:
+ *          description: Missing user token
+ *        402:
+ *          description: User Authentication Failed
  *        500:
- *          description: Signing user up as an organizer to firebase failed
+ *          description: Internal server error
  * 
  */
