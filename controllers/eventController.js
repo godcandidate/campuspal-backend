@@ -1,4 +1,4 @@
-import { collection, arrayUnion, addDoc, doc, setDoc, updateDoc, getDoc, getDocs, query, where , limit} from "firebase/firestore";
+import { collection, arrayUnion, arrayRemove, addDoc, doc, setDoc, updateDoc, getDoc, getDocs, query, where , limit, deleteDoc} from "firebase/firestore";
 import db from "../firestore.js";
 
 
@@ -53,7 +53,6 @@ export async function getOrganizer(req, res){
 }
 
 //update organizer details
-// Update user profile
 export async function updateOrganizer(req, res){
     try {
 
@@ -71,3 +70,31 @@ export async function updateOrganizer(req, res){
         return res.status(500).send({ error: "Organizer update on firebase failed" });
     }
 }
+
+
+//delete organizer account
+export async function removeOrganizer(req, res){
+    try {
+
+        // Get user data and id 
+        const userData = req.body;
+        const {userId} = req.user;
+        
+        //Remove organizer account
+        await deleteDoc(doc(db, "organizers", userId));
+
+        //Remove organizer role from user roles
+        const userRef = doc(db, "users", userId);
+        const removedRole = "organizer";
+        await updateDoc(userRef, {
+        roles: arrayRemove(removedRole)
+        });
+   
+        return res.status(200).send({ msg: "Organizer account removed successfully"});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ error: "Organizer account deletion on firebase failed" });
+    }
+}
+
+
