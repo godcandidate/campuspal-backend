@@ -1,7 +1,7 @@
 import express from 'express';
 import multer from "multer";
 import {registerUser, loginUser, getUser, updateUser, logoutUser, updateUserProfilePicture} from '../controllers/userController.js';
-import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer } from '../controllers/eventController.js';
+import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer } from '../controllers/organizerController.js';
 
 import Auth from '../middleware/auth.js';
 
