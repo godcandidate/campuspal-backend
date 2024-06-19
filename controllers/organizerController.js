@@ -1,4 +1,4 @@
-import { collection, arrayUnion, arrayRemove, addDoc, doc, setDoc, updateDoc, getDoc, getDocs, query, where , limit, deleteDoc} from "firebase/firestore";
+import { arrayUnion, arrayRemove, doc, setDoc, updateDoc, getDoc, deleteDoc} from "firebase/firestore";
 import db from "../firestore.js";
 
 
