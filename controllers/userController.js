@@ -2,6 +2,7 @@ import { collection, collectionGroup, addDoc, doc, setDoc, updateDoc, getDoc, ge
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import jwt from 'jsonwebtoken';
 
+import {uploadFile} from "./assetController.js";
 import db from "../firestore.js";
 import 'dotenv/config';
 
@@ -121,6 +122,35 @@ export async function updateUser(req, res){
         return res.status(500).send({ error: "User update on firebase failed" });
     }
 }
+
+export async function updateUserProfilePicture(req, res) {
+    try {
+      const { userId } = req.user;
+      const firebasePath = "profile-pictures"; // Replace with your actual path
+  
+      // Upload the profile picture
+      const fileData = await uploadFile(req, res, firebasePath);
+  
+      if (!fileData) {
+        res.status(403).send({ error: "No file details" });
+      }
+  
+      // Update user details with profile picture URL
+      const imageData = {
+        imagePath: fileData.filePath,
+        imageURL: fileData.fileURL
+      }
+      
+      const userRef = doc(db, "users", userId);
+      await updateDoc(userRef, imageData);
+  
+      res.status(200).send({ msg: "Profile picture uploaded successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ error: "Updating user profile failed" });
+    }
+  }
+
 // User logout
 export async function logoutUser(req, res) {
     try {
