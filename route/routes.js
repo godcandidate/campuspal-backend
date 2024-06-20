@@ -2,7 +2,7 @@ import express from 'express';
 import multer from "multer";
 import {registerUser, loginUser, getUser, updateUser, logoutUser, updateUserProfilePicture} from '../controllers/userController.js';
 import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer } from '../controllers/organizerController.js';
-import { createEvent } from '../controllers/eventController.js';
+import { createEvent, getAllEvents } from '../controllers/eventController.js';
 import Auth from '../middleware/auth.js';
 
 // handles files upload
@@ -35,5 +35,6 @@ router.post("/organizers/remove", Auth, removeOrganizer);
 
 // Events route
 router.post("/events/add", Auth, upload.single('eventImage'),createEvent);
+router.get("/events/all", getAllEvents);
 
 export default router;
