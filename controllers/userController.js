@@ -51,11 +51,17 @@ export async function loginUser(req, res){
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
+        //get user details
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
+        const username = userSnap.data().name;
+
 
         // Create a Access token
         const accesstoken = jwt.sign(
             {
-                userId: user.uid
+                userId: user.uid,
+                userRoles: userSnap.data().roles
             },
             process.env.JWT_ACCESS_TOKEN,
             { expiresIn: "1h" }
@@ -71,7 +77,7 @@ export async function loginUser(req, res){
         );
        
        
-        return res.status(200).send({ msg: "User logged in successfully", email,
+        return res.status(200).send({ msg: "User logged in successfully", name: username,
         accesstoken});
         
         
@@ -86,6 +92,7 @@ export async function getUser(req, res){
     try {
         // Get user data and id
         const {userId} = req.user;
+  
         const userRef = doc(db, "users", userId);
 
         const userSnap = await getDoc(userRef);
