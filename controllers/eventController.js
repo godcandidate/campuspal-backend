@@ -3,7 +3,7 @@ import { collection, collectionGroup, addDoc, doc, setDoc, updateDoc, getDoc, ge
 import {uploadFile} from "./assetController.js";
 import db from "../firestore.js";
 
-
+// Create an event
 export async function createEvent(req, res) {
     try {
       const { userId, userRoles} = req.user;
@@ -47,4 +47,28 @@ export async function createEvent(req, res) {
       res.status(500).send({ error: "Creating new event failed on firebase" });
     }
   }
+
+// Get all  events
+export async function getAllEvents(req, res){
+  try {
+    const querySnapshot = await getDocs(collection(db, "events"));
+
+    // Extract data and IDs in a single step using destructuring and map
+    const eventsData = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    
+    res.status(200).send({
+      count: eventsData.length,
+      data: eventsData,
+    });
+    
+  } catch (error) {
+    res.status(500).send({error:"Events retireval failed"});
+  }
+}
+
+
+
 
