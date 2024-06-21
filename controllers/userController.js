@@ -67,14 +67,14 @@ export async function loginUser(req, res){
             { expiresIn: "1h" }
         );
 
-        // Create a Access token
+       /* // Create a Access token
         const refreshtoken = jwt.sign(
             {
                 userId: user.uid
             },
             process.env.JWT_REFRESH_TOKEN,
             { expiresIn: "24h" }
-        );
+        );*/
        
        
         return res.status(200).send({ msg: "User logged in successfully", name: username,
