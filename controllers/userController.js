@@ -186,3 +186,18 @@ export async function refreshtoken(req, res, next ) {
       return res.status(500).send({ error: "Logout failed" });
     }
   }
+
+// Get number of all users
+export async function getTotalUsers(req, res){
+    try {
+      // Get the number of documents in the "events" collection
+      const querySnapshot = await getDocs(collection(db, "users"));
+      const userCount = querySnapshot.size;
+  
+      res.status(200).send({
+        total_users: userCount
+      });
+    } catch (error) {
+      res.status(500).send({ error: "Users retrieval failed" });
+    }
+}
