@@ -2,7 +2,7 @@ import express from 'express';
 import multer from "multer";
 import {registerUser, loginUser, getUser, updateUser, logoutUser, updateUserProfilePicture} from '../controllers/userController.js';
 import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer } from '../controllers/organizerController.js';
-import { createEvent, getAllEvents, getOrganizerEvents } from '../controllers/eventController.js';
+import { createEvent, getAllEvents, getOrganizerEvents, getNumberOfEvents } from '../controllers/eventController.js';
 import Auth from '../middleware/auth.js';
 
 // handles files upload
@@ -14,6 +14,9 @@ const router = express.Router();
 router.get('/', (req, res) => {
   res.status(201).json("Home GET Request");
 });
+
+// Administrative routes
+router.get("/events/count", getNumberOfEvents);
 
 // User routes
 router.post("/users/register", registerUser);
