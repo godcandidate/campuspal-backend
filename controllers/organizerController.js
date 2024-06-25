@@ -1,4 +1,4 @@
-import { arrayUnion, arrayRemove, doc, setDoc, updateDoc, getDoc, deleteDoc} from "firebase/firestore";
+import { arrayUnion, arrayRemove, doc, setDoc, updateDoc, getDoc, getDocs, collection, deleteDoc} from "firebase/firestore";
 import db from "../firestore.js";
 
 
@@ -96,5 +96,22 @@ export async function removeOrganizer(req, res){
         return res.status(500).send({ error: "Organizer account deletion on firebase failed" });
     }
 }
+
+// Get total number organizers
+export async function getNumberOfOrganizers(req, res){
+    try {
+      
+        const querySnapshot = await getDocs(collection(db, "organizers"));
+        const userCount = querySnapshot.size;
+    
+        res.status(200).send({
+          total_organizers: userCount
+        });
+  
+    } catch (error) {
+        console.log(error);
+      res.status(500).send({ error: "Organizers retrieval failed" });
+    }
+  }
 
 
