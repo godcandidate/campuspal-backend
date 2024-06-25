@@ -69,6 +69,37 @@ export async function getAllEvents(req, res){
   }
 }
 
+// Get user created events
+export async function getOrganizerEvents(req, res){
+  try {
+
+      const { userId } = req.user;
+      
+      // query to filter by creator (userId)
+      const q = query(collection(db, "events"), where("creator", "==", userId));
+
+      // Get matching events
+      const querySnapshot = await getDocs(q);
+
+      // Extract data and IDs in a single step using destructuring and map
+      const eventData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      
+      res.status(200).send({
+        msg : "Organizer events retrieved Successfully",
+        count: eventData.length,
+        data: eventData,
+      });
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({error:"Event retireval failed"});
+  }
+
+}
+
 
 
 
