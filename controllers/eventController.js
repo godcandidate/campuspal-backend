@@ -100,6 +100,20 @@ export async function getOrganizerEvents(req, res){
 
 }
 
+// Get total number of events uploaded
+export async function getNumberOfEvents(req, res) {
+  try {
+    // Get the number of documents in the "events" collection
+    const querySnapshot = await getDocs(collection(db, "events"));
+    const eventCount = querySnapshot.size;
+
+    res.status(200).send({
+      total_events: eventCount,
+    });
+  } catch (error) {
+    res.status(500).send({ error: "Events retrieval failed" });
+  }
+}
 
 
 
