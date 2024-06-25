@@ -201,3 +201,24 @@ export async function getTotalUsers(req, res){
       res.status(500).send({ error: "Users retrieval failed" });
     }
 }
+
+// Get number of normal users
+export async function getTotalNormalUsers(req, res){
+  try {
+    
+    const q = query(collection(db, "users"), where("roles", "array-contains-any", ["user", "organizer"]))
+    const querySnapshot = await getDocs(q);
+    const q2 = await getDocs(collection(db, "users"));
+    const userCount = q2.size - querySnapshot.size;
+
+    res.status(200).send({
+      total_users: userCount
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: "Users retrieval failed" });
+  }
+}
+
+
