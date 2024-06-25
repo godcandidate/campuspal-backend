@@ -1,7 +1,7 @@
 import express from 'express';
 import multer from "multer";
 import {registerUser, loginUser, getUser, updateUser, logoutUser, updateUserProfilePicture, getTotalUsers, getTotalNormalUsers} from '../controllers/userController.js';
-import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer } from '../controllers/organizerController.js';
+import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer, getNumberOfOrganizers } from '../controllers/organizerController.js';
 import { createEvent, getAllEvents, getOrganizerEvents, getNumberOfEvents } from '../controllers/eventController.js';
 import Auth from '../middleware/auth.js';
 
@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
 router.get("/users/all", getTotalUsers);
 router.get("/users/count", getTotalNormalUsers);
 router.get("/events/count", getNumberOfEvents);
+router.get("/organizers/count", getNumberOfOrganizers);
 
 // User routes
 router.post("/users/register", registerUser);
