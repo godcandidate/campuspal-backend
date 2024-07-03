@@ -1,5 +1,5 @@
 import { collection, collectionGroup, addDoc, doc, setDoc, updateDoc, getDoc, getDocs, query, where , limit} from "firebase/firestore";
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from "firebase/auth";
 import jwt from 'jsonwebtoken';
 
 import {uploadFile} from "./assetController.js";
@@ -56,6 +56,12 @@ export async function loginUser(req, res){
         const userSnap = await getDoc(userRef);
         const username = userSnap.data().Name;
 
+        /*//"emailVerified": false
+        if (!user.emailVerified){
+          return res.status(202).send({ msg: "Verify your email", name: username})
+        }
+         await sendPasswordResetEmail(auth, email);
+        */
 
         // Create a Access token
         const accesstoken = jwt.sign(
@@ -220,5 +226,24 @@ export async function getTotalNormalUsers(req, res){
     res.status(500).send({ error: "Users retrieval failed" });
   }
 }
+
+// Reset password
+export async function changePassword(req, res){
+  try {
+    
+    const {email} = req.body;
+
+    res.status(200).send({
+      total_users: userCount
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: "Users retrieval failed" });
+  }
+
+}
+
+
 
 
