@@ -360,3 +360,90 @@ try {
  *          description: Organizer account deletion failed
  * 
  */
+
+
+/* EVENTS API */
+//Get all events
+/**
+ * @swagger
+ * /events/all:
+ *   get:
+ *     tags:
+ *     - Event APIs
+ *     summary: Get all events details
+ *     description: Retreiving all events
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: User not found
+ */
+//Create an event
+/**
+ * @swagger
+ * /events/create:
+ *   post:
+ *     tags:
+ *       - Event APIs
+ *     summary: Create an event
+ *     description: Upload an event
+ *     consumes:
+ *       - multipart/form-data
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *       - in: formData
+ *         name: eventImage
+ *         type: file
+ *         required: true
+ *         description: The event image to upload
+ *       - in: formData
+ *         name: name
+ *         type: string
+ *         required: true
+ *         description: The name of the event
+ *       - in: formData
+ *         name: description
+ *         type: string
+ *         required: true
+ *         description: The description of the event
+ *       - in: formData
+ *         name: category
+ *         type: string
+ *         required: true
+ *         description: Event category
+ *       - in: formData
+ *         name: location
+ *         type: string
+ *         required: true
+ *         description: The location of the event
+ *       - in: formData
+ *         name: startDate
+ *         type: date
+ *         required: true
+ *         description: The date the event starts
+ *       - in: formData
+ *         name: endDate
+ *         type: date
+ *         required: true
+ *         description: The date the event ends
+ *       - in: formData
+ *         name: contact
+ *         type: string
+ *         required: true
+ *         description: Contact person for further details
+ *     responses:
+ *       201:
+ *         description: Event created successfully
+ *       401:
+ *         description: Missing user token
+ *       402:
+ *         description: User Authentication Failed
+ *       500:
+ *         description: Internal server error
+ */
