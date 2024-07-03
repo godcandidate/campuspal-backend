@@ -447,3 +447,80 @@ try {
  *       500:
  *         description: Internal server error
  */
+
+/* ADMIN API */
+//Get all users
+/**
+ * @swagger
+ * /users/all:
+ *   get:
+ *     tags:
+ *     - Admin APIs
+ *     summary: Get all users
+ *     description: Retreiving all users
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
+//Get normal user
+/**
+ * @swagger
+ * /users/all:
+ *   get:
+ *     tags:
+ *     - Admin APIs
+ *     summary: Get number of all users
+ *     description: Retreiving total number of users
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
+//Get all normal users
+/**
+ * @swagger
+ * /users/count:
+ *   get:
+ *     tags:
+ *     - Admin APIs
+ *     summary: Get number of normal users
+ *     description: Retreiving total number of normal users
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
+//Get all organizers
+/**
+ * @swagger
+ * /organizers/count:
+ *   get:
+ *     tags:
+ *     - Admin APIs
+ *     summary: Get number of organizers
+ *     description: Retreiving total number of organizers
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
+//Get all events
+/**
+ * @swagger
+ * /events/count:
+ *   get:
+ *     tags:
+ *     - Admin APIs
+ *     summary: Get total number of events
+ *     description: Retreiving total number of events
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
