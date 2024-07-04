@@ -360,7 +360,29 @@ try {
  *          description: Organizer account deletion failed
  * 
  */
-
+//Get all events by an organizer
+/**
+ * @swagger
+ * /events/organizer:
+ *   get:
+ *     tags:
+ *     - Event APIs
+ *     summary: Get all events by organizer
+ *     description: Retreiving all events uploaded by an organizer
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
 
 /* EVENTS API */
 //Get all events
