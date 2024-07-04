@@ -469,6 +469,29 @@ try {
  *       500:
  *         description: Internal server error
  */
+//Get all details of an event
+/**
+ * @swagger
+ * /events/{id}:
+ *   get:
+ *     tags:
+ *     - Event APIs
+ *     summary: Get details of an event
+ *     description: Retreiving all details of an event
+ *     parameters:
+ *     - name: id
+ *       description: Enter event id
+ *       in: path
+ *       type: string
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Event not found
+ *       500:
+ *         description: Internal error
+ */
 
 /* ADMIN API */
 //Get all users
