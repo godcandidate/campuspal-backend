@@ -115,5 +115,29 @@ export async function getNumberOfEvents(req, res) {
   }
 }
 
+// view  all details of an event
+export async function getEvent(req, res){
+  try {
+
+      // Get user data and id 
+      const eventId = req.params.id;
+      
+      const userRef = doc(db, "events", eventId);
+      const userSnap = await getDoc(userRef);
+
+        // Organizer exists
+        if (userSnap.exists()) {
+            return res.status(200).send(userSnap.data());
+        }
+      
+        return res.status(404).send({msg:"Event not found"});
+      
+  } catch (error) {
+      console.log(error);
+      return res.status(500).send({ error: "Event retrieval failed on firebase failed" });
+  }
+}
+
+
 
 
