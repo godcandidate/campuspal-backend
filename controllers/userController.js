@@ -84,7 +84,7 @@ export async function loginUser(req, res){
        
        
         return res.status(200).send({ msg: "User logged in successfully", name: username,
-        accesstoken});
+        accesstoken, userRoles: userSnap.data().roles});
         
         
     } catch (error) {
