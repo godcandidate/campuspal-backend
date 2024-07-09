@@ -492,6 +492,42 @@ try {
  *       500:
  *         description: Internal error
  */
+//Update an event
+/**
+ * @swagger
+ * /events/{id}:
+ *   put:
+ *     tags:
+ *     - Event APIs
+ *     summary: Update details of an event
+ *     description: Updating the details of an event
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *     - name: Authorization
+ *       in: header
+ *       type: string
+ *       required: true
+ *       description: Bearer token for authentication
+ *     - name: id
+ *       description: Enter event id
+ *       in: path
+ *       type: string
+ *       required: true
+ *     - name: Update event data
+ *       description: Modify event data
+ *       in: body
+ *       type: string
+ *       required: false
+ *       example: {
+ *              "is_active": true
+ *               }
+ *     responses:
+ *       200:
+ *         description: Success
+ *       500:
+ *         description: Internal error
+ */
 
 /* ADMIN API */
 //Get all users
