@@ -140,4 +140,25 @@ export async function getEvent(req, res){
 
 
 
+//update an event
+export async function updateEvent(req, res){
+  try {
+
+      // Get user data and id 
+      const userData = req.body;
+      const eventId = req.params.id;
+      console.log(eventId);
+      /*
+      const userRef = doc(db, "events", eventId);
+      
+      await updateDoc(userRef, userData);*/
+
+      return res.status(200).send({ msg: "Event details updated successfully"});
+  } catch (error) {
+      console.log(error);
+      return res.status(500).send({ error: "Event update on firebase failed" });
+  }
+}
+
+
 
