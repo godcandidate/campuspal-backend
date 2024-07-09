@@ -147,11 +147,9 @@ export async function updateEvent(req, res){
       // Get user data and id 
       const userData = req.body;
       const eventId = req.params.id;
-      console.log(eventId);
-      /*
+     
       const userRef = doc(db, "events", eventId);
-      
-      await updateDoc(userRef, userData);*/
+      await updateDoc(userRef, userData);
 
       return res.status(200).send({ msg: "Event details updated successfully"});
   } catch (error) {
