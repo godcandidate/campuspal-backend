@@ -182,3 +182,18 @@ export async function getBusiness(req, res){
         return res.status(500).send({ error: "Event retrieval failed on firebase failed" });
     }
 }
+
+// Get total number of business
+export async function getNumberOfBusiness(req, res) {
+    try {
+      // Get the number of documents in the "events" collection
+      const querySnapshot = await getDocs(collection(db, "business"));
+      const businessCount = querySnapshot.size;
+  
+      res.status(200).send({
+        total_businesses: businessCount
+      });
+    } catch (error) {
+      res.status(500).send({ error: "Business retrieval failed" });
+    }
+  }
