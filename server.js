@@ -403,7 +403,7 @@ try {
 //Create an event
 /**
  * @swagger
- * /events/create:
+ * /events/add:
  *   post:
  *     tags:
  *       - Event APIs
@@ -446,12 +446,12 @@ try {
  *         description: The location of the event
  *       - in: formData
  *         name: startDate
- *         type: date
+ *         type: string
  *         required: true
  *         description: The date the event starts
  *       - in: formData
  *         name: endDate
- *         type: date
+ *         type: string
  *         required: true
  *         description: The date the event ends
  *       - in: formData
@@ -527,6 +527,28 @@ try {
  *         description: Success
  *       500:
  *         description: Internal error
+ */
+
+//Delete an event
+/**
+ * @swagger
+ * /events/{id}:
+ *   delete:
+ *     tags:
+ *     - Event APIs
+ *     summary: Delete an event
+ *     description: Deleting an event
+ *     parameters:
+ *     - name: id
+ *       description: Enter event id
+ *       in: path
+ *       type: string
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: User not found
  */
 
 /* ADMIN API */
