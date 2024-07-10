@@ -82,10 +82,7 @@ export async function getAllEvents(req, res) {
       ...doc.data(),
     }));
 
-    res.status(200).send({
-      count: eventsData.length,
-      data: eventsData,
-    });
+    res.status(200).send({eventsData});
   } catch (error) {
     console.error("Error retrieving events:", error); 
     res.status(500).send({ error: "Events retrieval failed" });
