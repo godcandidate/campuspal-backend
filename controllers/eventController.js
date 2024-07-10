@@ -180,7 +180,7 @@ export async function updateEvent(req, res){
 export async function deleteEvent(req, res){
   const eventId = req.params.id;
 
-  if (!videoMetadataID) {
+  if (!eventIdID) {
     return res.status(400).send({ error: 'Missing event ID' });
   }
 
