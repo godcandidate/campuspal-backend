@@ -2,6 +2,7 @@ import { arrayUnion, arrayRemove, doc, setDoc, updateDoc, getDoc, getDocs, colle
 import db from "../firestore.js";
 import {uploadFile} from "./assetController.js";
 
+//Register business
 export async function registerBusiness(req, res){
     try {
         // Get user data and id
@@ -39,5 +40,25 @@ export async function registerBusiness(req, res){
     } catch (error) {
         console.log(error);
         return res.status(500).send({ error: "Signing user business failed on firebase failed" });
+    }  
+}
+
+//View business details
+export async function getBusiness(req, res){
+    try {
+        // Get organizer data and id
+        const {userId} = req.user;
+        const userRef = doc(db, "business", userId);
+
+        const userSnap = await getDoc(userRef);
+
+        // Organizer exists
+        if (userSnap.exists()) {
+            return res.status(200).send(userSnap.data());
+        }
+        return res.status(404).send({ error: "Business does not exists" }); 
+        
+    } catch (error) {
+        return res.status(500).send({ error: "Retrieving business details from firebase failed" });
     }  
 }
