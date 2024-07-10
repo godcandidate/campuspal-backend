@@ -3,7 +3,7 @@ import multer from "multer";
 import {registerUser, loginUser, getUser, updateUser, logoutUser, updateUserProfilePicture, getTotalUsers, getTotalNormalUsers} from '../controllers/userController.js';
 import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer, getNumberOfOrganizers } from '../controllers/organizerController.js';
 import { createEvent, getAllEvents, getOrganizerEvents, getNumberOfEvents, getEvent, updateEvent, deleteEvent } from '../controllers/eventController.js';
-import { registerBusiness, getBusiness, getUserBusiness,updateBusiness, deleteBusiness, getAllBusinesses } from '../controllers/ownerController.js';
+import { registerBusiness, getBusiness, getUserBusiness,updateBusiness, deleteBusiness, getAllBusinesses, getNumberOfBusiness } from '../controllers/ownerController.js';
 import Auth from '../middleware/auth.js';
 
 // handles files upload
@@ -21,6 +21,8 @@ router.get("/users/all", getTotalUsers);
 router.get("/users/count", getTotalNormalUsers);
 router.get("/events/count", getNumberOfEvents);
 router.get("/organizers/count", getNumberOfOrganizers);
+router.get("/business/count", getNumberOfBusiness);
+
 
 // User routes
 router.post("/users/register", registerUser);
