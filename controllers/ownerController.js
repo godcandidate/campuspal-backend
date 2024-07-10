@@ -84,3 +84,33 @@ export async function updateBusiness(req, res){
         return res.status(500).send({ error: "Business update on firebase failed" });
     }
   }
+
+//Delete user business details
+export async function deleteBusiness(req, res){
+    try {
+        const businessId = req.params.id;
+
+        if (!eventIdID) {
+          return res.status(400).send({ error: 'Missing event ID' });
+        }
+
+        const businessRef = doc(db, "business", businessId);
+        const docSnapshot = await getDoc(businessRef);
+      
+        //get event image path
+        const businessData = docSnapshot.data();
+        const businessImage = businessData.imagePath;
+          
+        //Get event image reference from firebase storage
+        const imageRef = ref(storage, businessImage);
+          
+        //Deleting objects from storage
+        await deleteObject(imageRef);
+        await deleteDoc(docSnapshot.ref);
+      
+        res.status(200).send({msg: "Business deleted successfully"});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ error: "Business update on firebase failed" });
+    }
+  }
