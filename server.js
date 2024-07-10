@@ -394,6 +394,12 @@ try {
  *     - Event APIs
  *     summary: Get all events details
  *     description: Retreiving all events
+ *     parameters:
+ *     - name: category
+ *       description: Enter category to filter
+ *       in: query
+ *       type: string
+ *       example: Religious or Educational
  *     responses:
  *       200:
  *         description: Success
