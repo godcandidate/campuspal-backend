@@ -635,6 +635,42 @@ try {
  *       404:
  *         description: Retrieval not successful
  */
+//Update business
+/**
+ * @swagger
+ * /business/{id}:
+ *   put:
+ *     tags:
+ *     - Business APIs
+ *     summary: Update details of a business
+ *     description: Updating the details of a business
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *     - name: Authorization
+ *       in: header
+ *       type: string
+ *       required: true
+ *       description: Bearer token for authentication
+ *     - name: id
+ *       description: Enter business id
+ *       in: path
+ *       type: string
+ *       required: true
+ *     - name: Update event data
+ *       description: Modify event data
+ *       in: body
+ *       type: string
+ *       required: false
+ *       example: {
+ *              "items": ["Suits", "Shirts"]
+ *               }
+ *     responses:
+ *       200:
+ *         description: Success
+ *       500:
+ *         description: Internal error
+ */
 /* ADMIN API */
 //Get all users
 /**
