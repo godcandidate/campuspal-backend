@@ -671,6 +671,27 @@ try {
  *       500:
  *         description: Internal error
  */
+//Delete a business
+/**
+ * @swagger
+ * /business/{id}:
+ *   delete:
+ *     tags:
+ *     - Business APIs
+ *     summary: Remove a business
+ *     description: Removing a business
+ *     parameters:
+ *     - name: id
+ *       description: Enter event id
+ *       in: path
+ *       type: string
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Business not found
+ */
 /* ADMIN API */
 //Get all users
 /**
