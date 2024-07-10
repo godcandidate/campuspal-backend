@@ -557,6 +557,61 @@ try {
  *         description: User not found
  */
 
+/* BUSINESS API */
+//Create an event
+/**
+ * @swagger
+ * /business/register:
+ *   post:
+ *     tags:
+ *       - Business APIs
+ *     summary: Create a business
+ *     description: Register your business
+ *     consumes:
+ *       - multipart/form-data
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *       - in: formData
+ *         name: businessPoster
+ *         type: file
+ *         required: true
+ *         description: The event image to upload
+ *       - in: formData
+ *         name: name
+ *         type: string
+ *         required: true
+ *         description: The name of the business
+ *       - in: formData
+ *         name: description
+ *         type: string
+ *         required: true
+ *         description: The description of the business
+ *       - in: formData
+ *         name: category
+ *         type: string
+ *         required: true
+ *         description: Business category
+ *       - in: formData
+ *         name: items
+ *         type: string
+ *         required: true
+ *         description: The business products
+ *     responses:
+ *       201:
+ *         description: Business created successfully
+ *       401:
+ *         description: Missing user token
+ *       402:
+ *         description: User Authentication Failed
+ *       500:
+ *         description: Internal server error
+ */
 /* ADMIN API */
 //Get all users
 /**
