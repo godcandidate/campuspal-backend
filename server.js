@@ -579,6 +579,31 @@ try {
  *       404:
  *         description: User not found
  */
+
+//Get all details of an event
+/**
+ * @swagger
+ * /business/{id}:
+ *   get:
+ *     tags:
+ *     - Business APIs
+ *     summary: Get details of a business
+ *     description: Retreiving all details of a business
+ *     parameters:
+ *     - name: id
+ *       description: Enter business id
+ *       in: path
+ *       type: string
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Event not found
+ *       500:
+ *         description: Internal error
+ */
+
 //Create an event
 /**
  * @swagger
