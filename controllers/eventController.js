@@ -1,4 +1,4 @@
-import { collection, collectionGroup, addDoc, doc, setDoc, updateDoc, getDoc, getDocs, query, where , limit} from "firebase/firestore";
+import { collection, collectionGroup, addDoc, doc, setDoc, updateDoc, getDoc, getDocs, query, where, limit} from "firebase/firestore";
 
 import {uploadFile} from "./assetController.js";
 import db from "../firestore.js";
@@ -49,23 +49,46 @@ export async function createEvent(req, res) {
   }
 
 // Get all  events
-export async function getAllEvents(req, res){
+export async function getAllEvents(req, res) {
   try {
-    const querySnapshot = await getDocs(collection(db, "events"));
+    let eventRef = collection(db, "events");
+  
+    let q = collection(db, "events");
 
-    // Extract data and IDs in a single step using destructuring and map
+    
+    // Extract query parameters from request
+    const { name, category, startdate } = req.query;
+
+    // Exact matches
+    if (name) {
+      q = query(eventRef, where("name", "==", name));
+    }
+    if (category) {
+      q = query(eventRef, where("category", "==", category));
+    }
+    if (startdate) {
+      // Handle start date filtering (assuming a "date" field)
+      const startDate = new Date(startdate); // Parse start date string
+      q = query(eventRef, where("category", "==", category));
+      //query = query.where("date", ">=", startDate); // Greater than or equal to
+    }
+
+    // Execute the query
+    const querySnapshot = await getDocs(q);
+
+    // Extract data and IDs
     const eventsData = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
-    
+
     res.status(200).send({
       count: eventsData.length,
       data: eventsData,
     });
-    
   } catch (error) {
-    res.status(500).send({error:"Events retireval failed"});
+    console.error("Error retrieving events:", error); 
+    res.status(500).send({ error: "Events retrieval failed" });
   }
 }
 
