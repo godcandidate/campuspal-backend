@@ -558,6 +558,27 @@ try {
  */
 
 /* BUSINESS API */
+//Get all events
+/**
+ * @swagger
+ * /business/all:
+ *   get:
+ *     tags:
+ *     - Business APIs
+ *     summary: Get all business details
+ *     description: Retreiving all businesses
+ *     parameters:
+ *     - name: category
+ *       description: Enter category to filter
+ *       in: query
+ *       type: string
+ *       example: Accessories or Fashion
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: User not found
+ */
 //Create an event
 /**
  * @swagger
