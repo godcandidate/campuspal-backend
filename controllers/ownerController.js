@@ -1,4 +1,4 @@
-import { arrayUnion, arrayRemove, doc, setDoc, updateDoc, getDoc, getDocs, collection, deleteDoc} from "firebase/firestore";
+import { arrayUnion, arrayRemove, query,doc, setDoc, updateDoc, getDoc, getDocs, collection, deleteDoc, where} from "firebase/firestore";
 import db from "../firestore.js";
 import {uploadFile} from "./assetController.js";
 
@@ -7,7 +7,7 @@ export async function registerBusiness(req, res){
     try {
         // Get user data and id
         const {userId} = req.user;
-        const {name, description, items} = req.body;
+        const {name, description, items, category} = req.body;
 
         const firebasePath = "business-posters";
   
@@ -28,6 +28,7 @@ export async function registerBusiness(req, res){
         const businessData = {
             name: name,
             description: description,
+            category: category,
             items: items,
             imagePath: fileData.filePath,
             imageURL:fileData.fileURL
@@ -67,6 +68,7 @@ export async function getBusiness(req, res){
     }  
 }
 
+
 //Update user business details
 export async function updateBusiness(req, res){
     try {
@@ -103,14 +105,57 @@ export async function deleteBusiness(req, res){
           
         //Get event image reference from firebase storage
         const imageRef = ref(storage, businessImage);
-          
+ 
         //Deleting objects from storage
         await deleteObject(imageRef);
         await deleteDoc(docSnapshot.ref);
+
+         //Remove owner role from user roles
+         const userRef = doc(db, "users", businessId);
+         const removedRole = "owner";
+         await updateDoc(userRef, {
+         roles: arrayRemove(removedRole)
+         });
       
         res.status(200).send({msg: "Business deleted successfully"});
     } catch (error) {
         console.log(error);
         return res.status(500).send({ error: "Business update on firebase failed" });
+    }
+}
+
+// Get all business
+export async function getAllBusinesses(req, res) {
+    try {
+      let eventRef = collection(db, "business");
+    
+      let q = collection(db, "business");
+  
+      
+      // Extract query parameters from request
+      const { name, category, startdate } = req.query;
+  
+      // Exact matches
+      if (name) {
+        q = query(eventRef, where("name", "==", name));
+      }
+      if (category) {
+        q = query(eventRef, where("category", "==", category));
+      }
+      
+  
+      // Execute the query
+      const querySnapshot = await getDocs(q);
+  
+      // Extract data and IDs
+      const eventsData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+  
+      res.status(200).send({eventsData});
+    } catch (error) {
+      console.error("Error retrieving business:", error); 
+      res.status(500).send({ error: "Businesses retrieval failed" });
     }
   }
