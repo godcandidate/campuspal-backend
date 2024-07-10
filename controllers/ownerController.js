@@ -43,18 +43,22 @@ export async function registerBusiness(req, res){
     }  
 }
 
-//View business details
+//Get user business details
 export async function getBusiness(req, res){
     try {
-        // Get organizer data and id
+        // Get business data and id
         const {userId} = req.user;
         const userRef = doc(db, "business", userId);
 
         const userSnap = await getDoc(userRef);
-
-        // Organizer exists
+     
+        // Business exists
         if (userSnap.exists()) {
-            return res.status(200).send(userSnap.data());
+            const data = {
+                businessId: userSnap.id,
+                ...userSnap.data()
+            }
+            return res.status(200).send(data);
         }
         return res.status(404).send({ error: "Business does not exists" }); 
         
@@ -62,3 +66,21 @@ export async function getBusiness(req, res){
         return res.status(500).send({ error: "Retrieving business details from firebase failed" });
     }  
 }
+
+//Update user business details
+export async function updateBusiness(req, res){
+    try {
+  
+        // Get user data and id 
+        const userData = req.body;
+        const businessId = req.params.id;
+       
+        const userRef = doc(db, "business", businessId);
+        await updateDoc(userRef, userData);
+  
+        return res.status(200).send({ msg: "Business details updated successfully"});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ error: "Business update on firebase failed" });
+    }
+  }
