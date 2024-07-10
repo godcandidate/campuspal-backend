@@ -612,6 +612,29 @@ try {
  *       500:
  *         description: Internal server error
  */
+//Get user business deatils
+/**
+ * @swagger
+ * /business/profile:
+ *   get:
+ *     tags:
+ *     - Business APIs
+ *     summary: Get business details of user
+ *     description: Retreiving all details of a user business
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
 /* ADMIN API */
 //Get all users
 /**
