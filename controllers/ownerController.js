@@ -45,7 +45,7 @@ export async function registerBusiness(req, res){
 }
 
 //Get user business details
-export async function getBusiness(req, res){
+export async function getUserBusiness(req, res){
     try {
         // Get business data and id
         const {userId} = req.user;
@@ -159,3 +159,26 @@ export async function getAllBusinesses(req, res) {
       res.status(500).send({ error: "Businesses retrieval failed" });
     }
   }
+
+// Get business details
+export async function getBusiness(req, res){
+    try {
+  
+        // Get user data and id 
+        const eventId = req.params.id;
+        
+        const userRef = doc(db, "business", eventId);
+        const userSnap = await getDoc(userRef);
+  
+          // Organizer exists
+          if (userSnap.exists()) {
+              return res.status(200).send(userSnap.data());
+          }
+        
+          return res.status(404).send({msg:"Business not found"});
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ error: "Event retrieval failed on firebase failed" });
+    }
+}
