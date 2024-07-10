@@ -9,10 +9,10 @@ export async function createEvent(req, res) {
       const { userId, userRoles} = req.user;
 
       // check if user is an organizer
-      const isOrganizer = userRoles.includes('organizer');
+      /*const isOrganizer = userRoles.includes('organizer');
       if (!isOrganizer){
             return res.status(403).send({ error:"Access denied, user not an organizer"});
-        }
+        }*/
 
       const firebasePath = "event-pictures";
   
@@ -138,8 +138,6 @@ export async function getEvent(req, res){
   }
 }
 
-
-
 //update an event
 export async function updateEvent(req, res){
   try {
@@ -158,5 +156,34 @@ export async function updateEvent(req, res){
   }
 }
 
+// delete an event
+export async function deleteEvent(req, res){
+  const eventId = req.params.id;
 
+  if (!videoMetadataID) {
+    return res.status(400).send({ error: 'Missing event ID' });
+  }
 
+  try {
+
+    const eventRef = doc(db, "events", eventId);
+    const docSnapshot = await getDoc(eventRef);
+
+    //get event image path
+    const eventData = docSnapshot.data();
+    const eventImage = eventData.imagePath;
+    
+    //Get event image reference from firebase storage
+    const imageRef = ref(storage, eventImage);
+    
+    //Deleting objects from storage
+    await deleteObject(imageRef);
+    await deleteDoc(docSnapshot.ref);
+
+    res.status(200).send({msg: "Event deleted successfully"});
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({error:"Event deletion failed"});
+  }
+}
