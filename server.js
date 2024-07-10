@@ -814,3 +814,18 @@ try {
  *       404:
  *         description: Retrieval not successful
  */
+//Get all business
+/**
+ * @swagger
+ * /business/count:
+ *   get:
+ *     tags:
+ *     - Admin APIs
+ *     summary: Get total number of business
+ *     description: Retreiving total number of business
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
