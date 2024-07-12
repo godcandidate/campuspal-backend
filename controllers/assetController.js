@@ -46,3 +46,18 @@ export async function uploadFile(req, res, firebasePath) {
     res.status(500).send({ error: "Uploading file failed on firebase" });
   }
 }
+
+export async function deleteFile(req, res, firebasePath) {
+  try {
+     //Get event image reference from firebase storage
+     const imageRef = ref(storage, firebasePath);
+    
+     //Deleting objects from storage
+     await deleteObject(imageRef);
+
+    return;
+
+  } catch (error) {
+    res.status(500).send({ error: "Deleting file failed on firebase" });
+  }
+}
