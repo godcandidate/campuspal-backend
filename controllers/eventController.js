@@ -1,6 +1,6 @@
-import { collection, collectionGroup, addDoc, doc, setDoc, updateDoc, getDoc, getDocs, query, where, limit} from "firebase/firestore";
+import { collection, collectionGroup, addDoc, doc, setDoc, updateDoc, getDoc, getDocs, query, where, deleteDoc, limit} from "firebase/firestore";
 
-import {uploadFile} from "./assetController.js";
+import {uploadFile, deleteFile} from "./assetController.js";
 import db from "../firestore.js";
 
 // Create an event
@@ -180,7 +180,7 @@ export async function updateEvent(req, res){
 export async function deleteEvent(req, res){
   const eventId = req.params.id;
 
-  if (!eventIdID) {
+  if (!eventId) {
     return res.status(400).send({ error: 'Missing event ID' });
   }
 
@@ -191,13 +191,12 @@ export async function deleteEvent(req, res){
 
     //get event image path
     const eventData = docSnapshot.data();
-    const eventImage = eventData.imagePath;
+    const firebasePath = eventData.imagePath;
+  
+    // delete the event image from storage
+    //await deleteFile(req, res, firebasePath);
     
-    //Get event image reference from firebase storage
-    const imageRef = ref(storage, eventImage);
-    
-    //Deleting objects from storage
-    await deleteObject(imageRef);
+    // delete event from firestore
     await deleteDoc(docSnapshot.ref);
 
     res.status(200).send({msg: "Event deleted successfully"});
