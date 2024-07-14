@@ -78,35 +78,28 @@ export async function updateBusiness(req, res){
 //Delete user business details
 export async function deleteBusiness(req, res){
     try {
-        const businessId = req.params.id;
+          const { userId} = req.user;
 
-        if (!businessId) {
-          return res.status(400).send({ error: 'Missing event ID' });
-        }
+          // Get business by userId
+          const businessRef = doc(db, "business", userId);
+          const docSnapshot = await getDoc(businessRef);
 
-        const businessRef = doc(db, "business", businessId);
-        const docSnapshot = await getDoc(businessRef);
-      
-        //get event image path
-        const businessData = docSnapshot.data();
-        const businessImage = businessData.imagePath;
-          
-         //get event image path
-        const eventData = docSnapshot.data();
-        const firebasePath = eventData.imagePath;
-      
-        // delete the event image from storage
-        await deleteFile(req, res, firebasePath);
-        await deleteDoc(docSnapshot.ref);
+          // Check for business logo and delete 
+          if (businessRef.imagePath){
+            await deleteFile(req, res, userRef.imagePath);
+          }
+  
+          // delete business
+          await deleteDoc(docSnapshot.ref);
 
-         //Remove owner role from user roles
-         const userRef = doc(db, "users", businessId);
-         const removedRole = "owner";
-         await updateDoc(userRef, {
-         roles: arrayRemove(removedRole)
-         });
-      
-        res.status(200).send({msg: "Business deleted successfully"});
+          //Remove owner role from user roles
+          const userRef = doc(db, "users", businessId);
+          const removedRole = "owner";
+          await updateDoc(userRef, {
+          roles: arrayRemove(removedRole)
+          });
+        
+          res.status(200).send({msg: "Business deleted successfully"});
     } catch (error) {
         console.log(error);
         return res.status(500).send({ error: "Business update on firebase failed" });
