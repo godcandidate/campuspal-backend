@@ -613,8 +613,6 @@ try {
  *       - Business APIs
  *     summary: Create a business
  *     description: Register your business
- *     consumes:
- *       - multipart/form-data
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -623,11 +621,6 @@ try {
  *         type: string
  *         required: true
  *         description: Bearer token for authentication
- *       - in: formData
- *         name: businessPoster
- *         type: file
- *         required: true
- *         description: The event image to upload
  *       - in: formData
  *         name: name
  *         type: string
@@ -639,15 +632,15 @@ try {
  *         required: true
  *         description: The description of the business
  *       - in: formData
- *         name: category
+ *         name: address
  *         type: string
  *         required: true
- *         description: Business category
+ *         description: Your location
  *       - in: formData
- *         name: items
+ *         name: contact
  *         type: string
  *         required: true
- *         description: The business products
+ *         description: The business official contact
  *     responses:
  *       201:
  *         description: Business created successfully
