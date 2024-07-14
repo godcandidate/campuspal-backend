@@ -776,6 +776,63 @@ try {
  *       500:
  *         description: Internal server error
  */
+/* Product API */
+//Add a product
+/**
+ * @swagger
+ * /products/add:
+ *   post:
+ *     tags:
+ *       - Product APIs
+ *     summary: Add a business product
+ *     description: Adding a business product
+ *     consumes:
+ *       - multipart/form-data
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *       - in: formData
+ *         name: productImage
+ *         type: file
+ *         required: true
+ *         description: The product image to upload
+ *       - in: formData
+ *         name: name
+ *         type: string
+ *         required: true
+ *         description: The name of the product
+ *       - in: formData
+ *         name: description
+ *         type: string
+ *         required: true
+ *         description: The description of the product
+ *       - in: formData
+ *         name: category
+ *         type: string
+ *         required: true
+ *         description: The product category
+ *       - in: formData
+ *         name: price
+ *         type: number
+ *         required: true
+ *         description: The price of the product
+ *     responses:
+ *       201:
+ *         description: Product added successfully
+ *       401:
+ *         description: Missing user token
+ *       402:
+ *         description: User Authentication Failed
+ *       404:
+ *         description: User is not a business owner
+ *       500:
+ *         description: Internal server error
+ */
 /* ADMIN API */
 //Get all users
 /**
