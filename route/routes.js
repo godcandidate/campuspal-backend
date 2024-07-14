@@ -48,7 +48,7 @@ router.get("/business/profile", Auth, getUserBusiness);
 router.post("/business/logo", Auth, upload.single('businessLogo'), uploadBusinessLogo);
 router.get("/business/all", getAllBusinesses);
 router.get("/business/:id", getBusiness);
-router.put("/business/:id", Auth, updateBusiness);
+router.put("/business/update", Auth, updateBusiness);
 router.delete("/business/delete", Auth, deleteBusiness);
 
 // Events route
