@@ -712,7 +712,7 @@ try {
 //Update business
 /**
  * @swagger
- * /business/{id}:
+ * /business/update:
  *   put:
  *     tags:
  *     - Business APIs
@@ -737,13 +737,17 @@ try {
  *       type: string
  *       required: false
  *       example: {
- *              "items": ["Suits", "Shirts"]
+ *              "name": "Eddie Collections"
  *               }
  *     responses:
  *       200:
  *         description: Success
+ *       401:
+ *         description: Missing user token
+ *       402:
+ *         description: User Authentication Failed
  *       500:
- *         description: Internal error
+ *         description: Internal server error
  */
 //Delete a business
 /**
