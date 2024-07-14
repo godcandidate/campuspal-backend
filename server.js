@@ -604,7 +604,7 @@ try {
  *         description: Internal error
  */
 
-//Create an event
+//Register a business
 /**
  * @swagger
  * /business/register:
@@ -651,7 +651,8 @@ try {
  *       500:
  *         description: Internal server error
  */
-//Get user business deatils
+
+//Get user business details
 /**
  * @swagger
  * /business/profile:
@@ -673,6 +674,40 @@ try {
  *         description: Success
  *       404:
  *         description: Retrieval not successful
+ */
+//Upload a business logo
+/**
+ * @swagger
+ * /business/logo:
+ *   post:
+ *     tags:
+ *       - Business APIs
+ *     summary: Upload business logo
+ *     description: Upload a logo for your business
+ *     consumes:
+ *       - multipart/form-data
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *       - in: formData
+ *         name: businessLogo
+ *         type: file
+ *         required: true
+ *         description: The business logo to upload
+ *     responses:
+ *       201:
+ *         description: Business logo uploaded successfully
+ *       401:
+ *         description: Missing user token
+ *       402:
+ *         description: User Authentication Failed
+ *       500:
+ *         description: Internal server error
  */
 //Update business
 /**
