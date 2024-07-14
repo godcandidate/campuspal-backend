@@ -4,6 +4,7 @@ import {registerUser, loginUser, getUser, updateUser, logoutUser, updateUserProf
 import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer, getNumberOfOrganizers } from '../controllers/organizerController.js';
 import { createEvent, getAllEvents, getOrganizerEvents, getNumberOfEvents, getEvent, updateEvent, deleteEvent } from '../controllers/eventController.js';
 import { registerBusiness, getBusiness, getUserBusiness,updateBusiness, deleteBusiness, getAllBusinesses, getNumberOfBusiness, uploadBusinessLogo } from '../controllers/businessController.js';
+import { addProduct } from '../controllers/productController.js';
 import Auth from '../middleware/auth.js';
 
 // handles files upload
@@ -43,7 +44,7 @@ router.put("/organizers/update", Auth, updateOrganizer);
 router.post("/organizers/remove", Auth,  removeOrganizer);
 
 //Business route
-router.post("/business/register", Auth, upload.single('businessPoster'), registerBusiness);
+router.post("/business/register", Auth, registerBusiness);
 router.get("/business/profile", Auth, getUserBusiness);
 router.post("/business/logo", Auth, upload.single('businessLogo'), uploadBusinessLogo);
 router.get("/business/all", getAllBusinesses);
@@ -51,6 +52,8 @@ router.get("/business/:id", getBusiness);
 router.put("/business/update", Auth, updateBusiness);
 router.delete("/business/delete", Auth, deleteBusiness);
 
+// Product route
+router.post("/products/add", Auth, upload.single('productImage'), addProduct);
 // Events route
 router.get("/events/all", getAllEvents);
 router.get("/events/:id", getEvent);
