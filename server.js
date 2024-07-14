@@ -748,23 +748,29 @@ try {
 //Delete a business
 /**
  * @swagger
- * /business/{id}:
+ * /business/delete:
  *   delete:
  *     tags:
  *     - Business APIs
- *     summary: Remove a business
- *     description: Removing a business
+ *     summary: Delete user business
+ *     description: Removing user business
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
- *     - name: id
- *       description: Enter event id
- *       in: path
- *       type: string
- *       required: true
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Bearer token for authentication
  *     responses:
  *       200:
  *         description: Success
- *       404:
- *         description: Business not found
+ *       401:
+ *         description: Missing user token
+ *       402:
+ *         description: User Authentication Failed
+ *       500:
+ *         description: Internal server error
  */
 /* ADMIN API */
 //Get all users
