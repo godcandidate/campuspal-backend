@@ -49,7 +49,7 @@ router.post("/business/logo", Auth, upload.single('businessLogo'), uploadBusines
 router.get("/business/all", getAllBusinesses);
 router.get("/business/:id", getBusiness);
 router.put("/business/:id", Auth, updateBusiness);
-router.delete("/business/:id", deleteBusiness);
+router.delete("/business/delete", Auth, deleteBusiness);
 
 // Events route
 router.get("/events/all", getAllEvents);
