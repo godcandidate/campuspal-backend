@@ -777,6 +777,21 @@ try {
  *         description: Internal server error
  */
 /* Product API */
+//Get all products
+/**
+ * @swagger
+ * /products/all:
+ *   get:
+ *     tags:
+ *     - Product APIs
+ *     summary: Get all products
+ *     description: Retreiving all products
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
 //Add a product
 /**
  * @swagger
@@ -832,6 +847,29 @@ try {
  *         description: User is not a business owner
  *       500:
  *         description: Internal server error
+ */
+//Get all products for a business
+/**
+ * @swagger
+ * /products/business:
+ *   get:
+ *     tags:
+ *     - Product APIs
+ *     summary: Get all products by business
+ *     description: Retreiving all products by a business
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
  */
 /* ADMIN API */
 //Get all users
