@@ -60,12 +60,12 @@ export async function getUserBusiness(req, res){
 //Update user business details
 export async function updateBusiness(req, res){
     try {
-  
-        // Get user data and id 
+      
+        // Get user data and  user id 
         const userData = req.body;
-        const businessId = req.params.id;
+        const { userId} = req.user;
        
-        const userRef = doc(db, "business", businessId);
+        const userRef = doc(db, "business", userId);
         await updateDoc(userRef, userData);
   
         return res.status(200).send({ msg: "Business details updated successfully"});
