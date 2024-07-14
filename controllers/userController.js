@@ -70,7 +70,7 @@ export async function loginUser(req, res){
                 userRoles: userSnap.data().roles
             },
             process.env.JWT_ACCESS_TOKEN,
-            { expiresIn: "1h" }
+            { expiresIn: "24h" }
         );
 
        /* // Create a Access token
