@@ -54,7 +54,7 @@ export async function loginUser(req, res){
         //get user details
         const userRef = doc(db, "users", user.uid);
         const userSnap = await getDoc(userRef);
-        const username = userSnap.data().Name;
+        const username = userSnap.data().name;
 
         /*//"emailVerified": false
         if (!user.emailVerified){
