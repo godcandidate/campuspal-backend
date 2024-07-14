@@ -194,7 +194,7 @@ export async function deleteEvent(req, res){
     const firebasePath = eventData.imagePath;
   
     // delete the event image from storage
-    //await deleteFile(req, res, firebasePath);
+    await deleteFile(req, res, firebasePath);
     
     // delete event from firestore
     await deleteDoc(docSnapshot.ref);
