@@ -2,7 +2,7 @@ import {query,doc, addDoc, updateDoc, getDoc, getDocs, collection, deleteDoc, wh
 import db from "../firestore.js";
 import {uploadFile, deleteFile} from "./assetController.js";
 
-//Register business
+//Add a product
 export async function addProduct(req, res){
   try {
       
@@ -41,3 +41,71 @@ export async function addProduct(req, res){
       return res.status(500).send({ error: "Adding product failed on firebase failed" });
   }  
 }
+
+//Get business products
+export async function getBusinessProducts(req, res){
+    try {
+        // Get business data and id
+        const {userId} = req.user;
+        let productRef = collection(db, "products");
+
+        // Query for products where creator field matches userId
+        const q = query(productRef, where("businessID", "==", userId));
+      
+        const productSnap = await getDocs(q);
+       
+        // Check if user has products
+        if (!productSnap.docs) {
+            return res.status(404).send({ error: "No Business products" });   
+        }
+
+        const products = productSnap.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+
+        return res.status(200).send(products);
+        
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ error: "Retrieving business products from firebase failed" });
+    }  
+}
+
+//Get all products
+export async function getAllProducts(req, res) {
+    try {
+      let eventRef = collection(db, "products");
+    
+      let q = collection(db, "products");
+  
+      
+      // Extract query parameters from request
+      const { name, category, startdate } = req.query;
+  
+      // Exact matches
+      if (name) {
+        q = query(eventRef, where("name", "==", name));
+      }
+      if (category) {
+        q = query(eventRef, where("category", "==", category));
+      }
+     
+  
+      // Execute the query
+      const querySnapshot = await getDocs(q);
+  
+      // Extract data and IDs
+      const products = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+  
+      res.status(200).send({products});
+    } catch (error) {
+      console.error("Retrieving products:", error); 
+      res.status(500).send({ error: "Products retrieval failed on firebase" });
+    }
+  }
+  
