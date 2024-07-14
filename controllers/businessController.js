@@ -57,7 +57,6 @@ export async function getUserBusiness(req, res){
     }  
 }
 
-
 //Update user business details
 export async function updateBusiness(req, res){
     try {
@@ -155,9 +154,9 @@ export async function getBusiness(req, res){
     try {
   
         // Get user data and id 
-        const eventId = req.params.id;
+        const businessId = req.params.id;
         
-        const userRef = doc(db, "business", eventId);
+        const userRef = doc(db, "business", businessId);
         const userSnap = await getDoc(userRef);
   
           // Organizer exists
@@ -187,3 +186,38 @@ export async function getNumberOfBusiness(req, res) {
       res.status(500).send({ error: "Business retrieval failed" });
     }
   }
+
+// Upload business logo
+export async function uploadBusinessLogo(req, res) {
+  try {
+    const { userId} = req.user;
+    const firebasePath = "business-logos";
+
+    // Check if a logo already exists and delete 
+    const userRef = doc(db, "business", userId);
+    if (userRef.imagePath){
+      await deleteFile(req, res, userRef.imagePath);
+    }
+    
+    // Upload the event image
+    const fileData = await uploadFile(req, res, firebasePath);
+
+    if (!fileData) {
+      res.status(403).send({ error: "No logo details" });
+    }
+
+    //Event details
+    const imageData = {
+      imagePath: fileData.filePath,
+      imageURL:fileData.fileURL
+    };
+    
+    // update business on firestore
+    await updateDoc(userRef, imageData);
+
+    res.status(200).send({ msg: "Business logo updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Uploading new business logo failed on firebase" });
+  }
+}
