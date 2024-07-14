@@ -84,11 +84,13 @@ export async function deleteBusiness(req, res){
           const businessRef = doc(db, "business", userId);
           const docSnapshot = await getDoc(businessRef);
 
-          // Check for business logo and delete 
-          if (businessRef.imagePath){
-            await deleteFile(req, res, userRef.imagePath);
+            // Check for business logo and delete 
+          const businessData = docSnapshot.data();
+         
+          if (businessData.imagePath){
+            await deleteFile(req, res, businessData.imagePath);
           }
-  
+
           // delete business
           await deleteDoc(docSnapshot.ref);
 
@@ -186,27 +188,32 @@ export async function uploadBusinessLogo(req, res) {
     const { userId} = req.user;
     const firebasePath = "business-logos";
 
+    // Get business
+    const businessRef = doc(db, "business", userId);
+
     // Check if a logo already exists and delete 
-    const userRef = doc(db, "business", userId);
-    if (userRef.imagePath){
-      await deleteFile(req, res, userRef.imagePath);
+    const docSnapshot = await getDoc(businessRef);
+    const businessData = docSnapshot.data();
+
+    if (businessData.imagePath){
+      await deleteFile(req, res, businessData.imagePath);
     }
     
-    // Upload the event image
+    // Upload business logo
     const fileData = await uploadFile(req, res, firebasePath);
 
     if (!fileData) {
       res.status(403).send({ error: "No logo details" });
     }
 
-    //Event details
+    //Logo details
     const imageData = {
       imagePath: fileData.filePath,
       imageURL:fileData.fileURL
     };
     
     // update business on firestore
-    await updateDoc(userRef, imageData);
+    await updateDoc(businessRef, imageData);
 
     res.status(200).send({ msg: "Business logo updated successfully" });
   } catch (error) {
