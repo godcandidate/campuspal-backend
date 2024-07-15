@@ -108,4 +108,22 @@ export async function getAllProducts(req, res) {
       res.status(500).send({ error: "Products retrieval failed on firebase" });
     }
   }
+
+//update a product
+export async function updateProduct(req, res){
+    try {
+  
+        // Get user data and id 
+        const productData = req.body;
+        const productId = req.params.id;
+       
+        const userRef = doc(db, "products", productId);
+        await updateDoc(userRef, productData);
+  
+        return res.status(200).send({ msg: "Product details updated successfully"});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ error: "Product update on firebase failed" });
+    }
+  }
   
