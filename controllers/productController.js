@@ -126,4 +126,34 @@ export async function updateProduct(req, res){
         return res.status(500).send({ error: "Product update on firebase failed" });
     }
   }
+
+// delete a product
+export async function deleteProduct(req, res){
+    const productId = req.params.id;
+  
+    if (!productId) {
+      return res.status(400).send({ error: 'Missing event ID' });
+    }
+  
+    try {
+      const productRef = doc(db, "products", productId);
+      const docSnapshot = await getDoc(productRef);
+  
+      //get product image path
+      const productData = docSnapshot.data();
+      const firebasePath = productData.imagePath;
+    
+      // delete the event image from storage
+      await deleteFile(req, res, firebasePath);
+      
+      // delete event from firestore
+      await deleteDoc(docSnapshot.ref);
+  
+      res.status(200).send({msg: "Product deleted successfully"});
+      
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({error:"Product deletion failed on firebase"});
+    }
+  }
   
