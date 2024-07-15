@@ -786,6 +786,17 @@ try {
  *     - Product APIs
  *     summary: Get all products
  *     description: Retreiving all products
+ *     parameters:
+ *     - name: name
+ *       description: Enter name to filter
+ *       in: query
+ *       type: string
+ *       example: Iphone
+ *     - name: category
+ *       description: Enter category to filter
+ *       in: query
+ *       type: string
+ *       example: Electronics or Fashion
  *     responses:
  *       200:
  *         description: Success
