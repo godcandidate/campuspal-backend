@@ -900,6 +900,27 @@ try {
  *       500:
  *         description: Internal server error
  */
+//Delete product
+/**
+ * @swagger
+ * /products/{id}:
+ *   delete:
+ *     tags:
+ *     - Product APIs
+ *     summary: Delete a business product
+ *     description: Deleting a product
+ *     parameters:
+ *     - name: id
+ *       description: Enter product id
+ *       in: path
+ *       type: string
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: Success
+ *       500:
+ *         description: Internal server error
+ */
 
 /* ADMIN API */
 //Get all users
