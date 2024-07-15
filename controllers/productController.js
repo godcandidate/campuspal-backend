@@ -82,7 +82,7 @@ export async function getAllProducts(req, res) {
   
       
       // Extract query parameters from request
-      const { name, category, startdate } = req.query;
+      const { name, category} = req.query;
   
       // Exact matches
       if (name) {
