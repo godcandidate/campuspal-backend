@@ -1024,3 +1024,18 @@ try {
  *       404:
  *         description: Retrieval not successful
  */
+//Get all user details
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     tags:
+ *     - Admin APIs
+ *     summary: Get all users
+ *     description: Retreiving names, emails and phone numbers for all users
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
