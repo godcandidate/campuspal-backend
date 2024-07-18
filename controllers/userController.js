@@ -244,6 +244,27 @@ export async function changePassword(req, res){
 
 }
 
+// Get all users
+export async function getAllUsers(req, res) {
+  try {
+        //get users
+        const userRef = collection(db, "users");
+        const querySnapshot = await getDocs(userRef);
+
+        // Extract name, email and number from user data
+        const users = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            fullname: doc.data().name,
+            email: doc.data().email,
+            phoneNumber: doc.data().phoneNumber
+        }));
+
+    res.status(200).send({users});
+  } catch (error) {
+    console.error("Retrieving users:", error); 
+    res.status(500).send({ error: "Users retrieval failed on firebase" });
+  }
+}
 
 
 
