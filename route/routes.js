@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from "multer";
-import {registerUser, loginUser, getUser, updateUser, logoutUser, updateUserProfilePicture, getTotalUsers, getTotalNormalUsers} from '../controllers/userController.js';
+import {registerUser, loginUser, getUser, updateUser, logoutUser, updateUserProfilePicture, getTotalUsers, getTotalNormalUsers, getAllUsers} from '../controllers/userController.js';
 import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer, getNumberOfOrganizers } from '../controllers/organizerController.js';
 import { createEvent, getAllEvents, getOrganizerEvents, getNumberOfEvents, getEvent, updateEvent, deleteEvent } from '../controllers/eventController.js';
 import { registerBusiness, getBusiness, getUserBusiness,updateBusiness, deleteBusiness, getAllBusinesses, getNumberOfBusiness, uploadBusinessLogo } from '../controllers/businessController.js';
@@ -23,6 +23,7 @@ router.get("/users/count", getTotalNormalUsers);
 router.get("/events/count", getNumberOfEvents);
 router.get("/organizers/count", getNumberOfOrganizers);
 router.get("/business/count", getNumberOfBusiness);
+router.get("/users", getAllUsers);
 
 
 // User routes
