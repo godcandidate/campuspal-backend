@@ -221,3 +221,43 @@ export async function uploadBusinessLogo(req, res) {
     res.status(500).send({ error: "Uploading new business logo failed on firebase" });
   }
 }
+
+// Get all owner details
+export async function getAllOwnerDetails(req, res) {
+  try {
+      const businessRef = collection(db, "business");
+      const businessSnapshots = await getDocs(businessRef);
+      const business = [];
+  
+      for (const businessSnapshot of businessSnapshots.docs) {
+          const businessId = businessSnapshot.id;
+
+          //Get user ref
+          const userRef = doc(db, "users", businessId);
+          const userSnap = await getDoc(userRef);
+
+          //Get product ref
+          let productRef = collection(db, "products");
+          const q = query(productRef, where("businessID", "==", businessId));
+          const querySnapshot = await getDocs(q);
+
+          if (!userSnap.exists) {
+              continue; // Skip if user not found
+          }
+      
+          // Get name, organization name and number of events
+          const userName = userSnap.data().name;
+          const businessName = businessSnapshot.data().name;
+          const productCount = querySnapshot.size;
+      
+          business.push({ owner: userName, name: businessName, productCount });
+      }
+      
+      return res.status(200).send({ businesses : business});
+      
+  } catch (error) {
+      console.log(error);
+      return res.status(500).send({ error: "Getting owner details failed on firebase"});
+      
+  } 
+}
