@@ -1055,3 +1055,18 @@ try {
  *       404:
  *         description: Retrieval not successful
  */
+//Get all business details
+/**
+ * @swagger
+ * /business:
+ *   get:
+ *     tags:
+ *     - Admin APIs/ details
+ *     summary: Get all business
+ *     description: Retreiving all business owners, names and number of products posted for all users
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
