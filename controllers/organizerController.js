@@ -1,4 +1,4 @@
-import { arrayUnion, arrayRemove, doc, setDoc, updateDoc, getDoc, getDocs, collection, deleteDoc} from "firebase/firestore";
+import { arrayUnion, query, arrayRemove, doc, setDoc, updateDoc, getDoc, getDocs, collection, deleteDoc, where} from "firebase/firestore";
 import db from "../firestore.js";
 
 
@@ -114,4 +114,42 @@ export async function getNumberOfOrganizers(req, res){
     }
   }
 
+// Getting name, organizer, number of events posted
+export async function getAllOrganizerDetails(req, res) {
+    try {
+        const organizerRef = collection(db, "organizers");
+        const organizerSnapshots = await getDocs(organizerRef);
+        const organizers = [];
+    
+        for (const organizerSnapshot of organizerSnapshots.docs) {
+            const organizerId = organizerSnapshot.id;
 
+            //Get user ref
+            const userRef = doc(db, "users", organizerId);
+            const userSnap = await getDoc(userRef);
+
+            //Get event ref
+            let eventRef = collection(db, "events");
+            const q = query(eventRef, where("creator", "==", organizerId));
+            const querySnapshot = await getDocs(q);
+
+            if (!userSnap.exists) {
+                continue; // Skip if user not found
+            }
+        
+            // Get name, organization name and number of events
+            const userName = userSnap.data().name;
+            const organizationName = organizerSnapshot.data().name;
+            const eventCount = querySnapshot.size;
+        
+            organizers.push({ name: userName, organizationName, eventCount });
+        }
+        
+        return res.status(200).send({ organizers});
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ error: "Getting organizer details failed on firebase"});
+        
+    } 
+  }
