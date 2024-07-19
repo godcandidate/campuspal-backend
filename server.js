@@ -940,7 +940,7 @@ try {
  * /users/all:
  *   get:
  *     tags:
- *     - Admin APIs
+ *     - Admin APIs/ count
  *     summary: Get all users
  *     description: Retreiving all users
  *     responses:
@@ -955,7 +955,7 @@ try {
  * /users/all:
  *   get:
  *     tags:
- *     - Admin APIs
+ *     - Admin APIs/ count
  *     summary: Get number of all users
  *     description: Retreiving total number of users
  *     responses:
@@ -970,7 +970,7 @@ try {
  * /users/count:
  *   get:
  *     tags:
- *     - Admin APIs
+ *     - Admin APIs/ count
  *     summary: Get number of normal users
  *     description: Retreiving total number of normal users
  *     responses:
@@ -985,7 +985,7 @@ try {
  * /organizers/count:
  *   get:
  *     tags:
- *     - Admin APIs
+ *     - Admin APIs/ count
  *     summary: Get number of organizers
  *     description: Retreiving total number of organizers
  *     responses:
@@ -1000,7 +1000,7 @@ try {
  * /events/count:
  *   get:
  *     tags:
- *     - Admin APIs
+ *     - Admin APIs/ count
  *     summary: Get total number of events
  *     description: Retreiving total number of events
  *     responses:
@@ -1015,7 +1015,7 @@ try {
  * /business/count:
  *   get:
  *     tags:
- *     - Admin APIs
+ *     - Admin APIs/ count
  *     summary: Get total number of business
  *     description: Retreiving total number of business
  *     responses:
@@ -1024,15 +1024,31 @@ try {
  *       404:
  *         description: Retrieval not successful
  */
+/* Details */
 //Get all user details
 /**
  * @swagger
  * /users:
  *   get:
  *     tags:
- *     - Admin APIs
+ *     - Admin APIs/ details
  *     summary: Get all users
  *     description: Retreiving names, emails and phone numbers for all users
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
+//Get all organizers
+/**
+ * @swagger
+ * /organizers:
+ *   get:
+ *     tags:
+ *     - Admin APIs/ details
+ *     summary: Get all organizers
+ *     description: Retreiving organizer names, organization name and number of events posted for all users
  *     responses:
  *       200:
  *         description: Success
