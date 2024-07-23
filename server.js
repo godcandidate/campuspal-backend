@@ -991,7 +991,7 @@ try {
 //Add a lost card
 /**
  * @swagger
- * /founditem/cards:
+ * /founditems/card:
  *   post:
  *     tags:
  *       - Lost and Found APIs
@@ -1027,6 +1027,29 @@ try {
  *         description: User Authentication Failed
  *       500:
  *         description: Internal server error
+ */
+//Get all products for a business
+/**
+ * @swagger
+ * /founditems/user:
+ *   get:
+ *     tags:
+ *     - Lost and Found APIs
+ *     summary: Get all found items by user
+ *     description: Retreiving all found items by user
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
  */
 /* ADMIN API */
 //Get all users
