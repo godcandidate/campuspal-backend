@@ -153,3 +153,33 @@ export async function getAllOrganizerDetails(req, res) {
         
     } 
   }
+
+// Verify organizer 
+export async function verifyOrganizer(req, res){
+    try{
+        const role = 'organizer';
+
+        // Get user id
+        const {userId} = req.user;
+        
+        const userRef = doc(db, "users", userId);
+        const userSnap = await getDoc(userRef);
+        const userRoles = userSnap.data().roles;
+
+        // check if user role
+        const isOrganizer = userRoles.includes(role);
+
+        if(isOrganizer){
+            res.status(200).send({ msg: "Access granted" });
+        }
+        else{
+            res.status(403).send({ msg: "Access denied, user not an organizer" });
+        }
+        
+
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).send({ error: "Verification failed on firebase" });
+    }
+}
