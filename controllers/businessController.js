@@ -261,3 +261,32 @@ export async function getAllOwnerDetails(req, res) {
       
   } 
 }
+
+// Verify business owner
+export async function verifyOwner(req, res){
+  try{
+      const role = 'owner';
+
+      // Get user id
+      const {userId} = req.user;
+      
+      const userRef = doc(db, "users", userId);
+      const userSnap = await getDoc(userRef);
+      const userRoles = userSnap.data().roles;
+
+      // check if user role
+      const isOwner = userRoles.includes(role);
+
+      if(isOwner){
+          res.status(200).send({ msg: "Access granted" });
+      }
+      else{
+          res.status(403).send({ msg: "Access denied, user not a business owner" });
+      }
+
+  }
+  catch (error) {
+      console.log(error);
+      res.status(500).send({ error: "Verification failed on firebase" });
+  }
+}
