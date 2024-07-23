@@ -892,7 +892,6 @@ try {
  *       - in: formData
  *         name: description
  *         type: string
- *         required: true
  *         description: The description of the product
  *       - in: formData
  *         name: category
@@ -989,7 +988,46 @@ try {
  *       500:
  *         description: Internal server error
  */
-
+//Add a lost card
+/**
+ * @swagger
+ * /founditem/cards:
+ *   post:
+ *     tags:
+ *       - Lost and Found APIs
+ *     summary: Add a found card item
+ *     description: Upload a card item
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *       - name: Item details
+ *         description: Enter item data
+ *         in: body
+ *         type: string
+ *         required: true
+ *         example: {
+ *           "type" : "otherID",
+ *           "category" : "card",
+ *           "name" : "Joe A Sample", 
+ *           "dateOfBirth" : "01/01/71" ,
+ *           "index_number" : "",
+ *           "ref_number" : ""  
+ *          }
+ *     responses:
+ *       201:
+ *         description: Added lost card  successfully
+ *       401:
+ *         description: Missing user token
+ *       402:
+ *         description: User Authentication Failed
+ *       500:
+ *         description: Internal server error
+ */
 /* ADMIN API */
 //Get all users
 /**
