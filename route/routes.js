@@ -3,7 +3,7 @@ import multer from "multer";
 import {registerUser, loginUser, getUser, updateUser, logoutUser, updateUserProfilePicture, getTotalUsers, getTotalNormalUsers, getAllUsers} from '../controllers/userController.js';
 import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer, getNumberOfOrganizers, getAllOrganizerDetails, verifyOrganizer } from '../controllers/organizerController.js';
 import { createEvent, getAllEvents, getOrganizerEvents, getNumberOfEvents, getEvent, updateEvent, deleteEvent } from '../controllers/eventController.js';
-import { registerBusiness, getBusiness, getUserBusiness,updateBusiness, deleteBusiness, getAllBusinesses, getNumberOfBusiness, uploadBusinessLogo, getAllOwnerDetails } from '../controllers/businessController.js';
+import { registerBusiness, getBusiness, getUserBusiness,updateBusiness, deleteBusiness, getAllBusinesses, getNumberOfBusiness, uploadBusinessLogo, getAllOwnerDetails, verifyOwner } from '../controllers/businessController.js';
 import { addProduct, getBusinessProducts, getAllProducts, updateProduct, deleteProduct } from '../controllers/productController.js';
 import {addlostCards} from '../controllers/lostandfoundController.js'
 import Auth from '../middleware/auth.js';
@@ -56,6 +56,7 @@ router.get("/business/all", getAllBusinesses);
 router.get("/business/:id", getBusiness);
 router.put("/business/update", Auth, updateBusiness);
 router.delete("/business/delete", Auth, deleteBusiness);
+router.post("/business/verify", Auth, verifyOwner);
 
 
 // Product route
