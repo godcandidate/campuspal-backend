@@ -804,7 +804,35 @@ try {
  *       500:
  *         description: Internal server error
  */
-
+//Verify business
+/**
+ * @swagger
+ * /business/verify:
+ *   post:
+ *     tags:
+ *     - Business APIs
+ *     summary: Verify a business owner
+ *     description: Verifying a business before product upload
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *     responses:
+ *       200:
+ *         description: Access granted
+ *       401:
+ *         description: Missing user token
+ *       402:
+ *         description: User Authentication Failed
+ *       403:
+ *         description: Access denied, user not a business owner
+ *       500:
+ *         description: Internal server error
+ */
 /* Product API */
 //Get all products
 /**
