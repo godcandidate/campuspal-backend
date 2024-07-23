@@ -47,3 +47,33 @@ export async function addlostCards(req, res){
         return res.status(500).send({ error: "Adding found item failed on firebase failed" });
      }  
   }
+
+//Get all lost items uploaded by user
+export async function getUserFoundItems(req, res){
+    try {
+        // Get user id
+        const {userId} = req.user;
+
+        //Retrieve user found items if any
+        const itemRef = collection(db, "foundItems");
+        const q = query(itemRef, where("founder", "==", userId));
+        const querySnapshot = await getDocs(q);
+
+        //check if user has a history of lost items
+        const itemCount = querySnapshot.size;
+        if(itemCount === 0){
+            return res.status(404).send({msg: "user has not upload any found item" }); 
+        }
+     
+        // Extract data and IDs
+        const itemData = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+        }));
+
+        return res.status(200).send({itemData }); 
+        
+    } catch (error) {
+        return res.status(500).send({ error: "Retrieving business details from firebase failed" });
+    } 
+}
