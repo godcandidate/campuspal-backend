@@ -5,7 +5,7 @@ import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer, getN
 import { createEvent, getAllEvents, getOrganizerEvents, getNumberOfEvents, getEvent, updateEvent, deleteEvent } from '../controllers/eventController.js';
 import { registerBusiness, getBusiness, getUserBusiness,updateBusiness, deleteBusiness, getAllBusinesses, getNumberOfBusiness, uploadBusinessLogo, getAllOwnerDetails, verifyOwner } from '../controllers/businessController.js';
 import { addProduct, getBusinessProducts, getAllProducts, updateProduct, deleteProduct } from '../controllers/productController.js';
-import {addlostCards} from '../controllers/lostandfoundController.js'
+//import {addlostCards} from '../controllers/lostandfoundController.js'
 import Auth from '../middleware/auth.js';
 
 // handles files upload
