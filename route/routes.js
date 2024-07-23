@@ -1,10 +1,11 @@
 import express from 'express';
 import multer from "multer";
 import {registerUser, loginUser, getUser, updateUser, logoutUser, updateUserProfilePicture, getTotalUsers, getTotalNormalUsers, getAllUsers} from '../controllers/userController.js';
-import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer, getNumberOfOrganizers, getAllOrganizerDetails } from '../controllers/organizerController.js';
+import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer, getNumberOfOrganizers, getAllOrganizerDetails, verifyOrganizer } from '../controllers/organizerController.js';
 import { createEvent, getAllEvents, getOrganizerEvents, getNumberOfEvents, getEvent, updateEvent, deleteEvent } from '../controllers/eventController.js';
 import { registerBusiness, getBusiness, getUserBusiness,updateBusiness, deleteBusiness, getAllBusinesses, getNumberOfBusiness, uploadBusinessLogo, getAllOwnerDetails } from '../controllers/businessController.js';
 import { addProduct, getBusinessProducts, getAllProducts, updateProduct, deleteProduct } from '../controllers/productController.js';
+import {addlostCards} from '../controllers/lostandfoundController.js'
 import Auth from '../middleware/auth.js';
 
 // handles files upload
@@ -45,6 +46,7 @@ router.post("/organizers/register", Auth, registerOrganizer);
 router.get("/organizers/profile", Auth, getOrganizer);
 router.put("/organizers/update", Auth, updateOrganizer);
 router.post("/organizers/remove", Auth,  removeOrganizer);
+router.post("/organizers/verify", Auth,  verifyOrganizer);
 
 //Business route
 router.post("/business/register", Auth, registerBusiness);
@@ -55,6 +57,7 @@ router.get("/business/:id", getBusiness);
 router.put("/business/update", Auth, updateBusiness);
 router.delete("/business/delete", Auth, deleteBusiness);
 
+
 // Product route
 router.post("/products/add", Auth, upload.single('productImage'), addProduct);
 router.get("/products/business", Auth, getBusinessProducts);
@@ -63,15 +66,15 @@ router.put("/products/:id", updateProduct);
 router.delete("/products/:id", deleteProduct);
 
 
-
 // Events route
 router.get("/events/all", getAllEvents);
 router.get("/events/:id", getEvent);
 router.put("/events/:id", updateEvent);
 router.delete("/events/:id", deleteEvent);
 router.post("/events/add", Auth, upload.single('eventImage'),createEvent);
-
 router.get("/events/organizer", Auth, getOrganizerEvents);
 
+// Lost and found routes
+router.get("/founditem/cards", getAllEvents);
 
 export default router;
