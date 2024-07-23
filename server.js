@@ -383,7 +383,35 @@ try {
  *       404:
  *         description: Retrieval not successful
  */
-
+//Verify organizer
+/**
+ * @swagger
+ * /organizers/verify:
+ *   post:
+ *     tags:
+ *     - Organizer APIs
+ *     summary: Verify an organizer
+ *     description: Verifying an organizer before event upload
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *     responses:
+ *       200:
+ *         description: Access granted
+ *       401:
+ *         description: Missing user token
+ *       402:
+ *         description: User Authentication Failed
+ *       403:
+ *         description: Access denied, user not an organizer
+ *       500:
+ *         description: Internal server error
+ */
 /* EVENTS API */
 //Get all events
 /**
@@ -776,6 +804,7 @@ try {
  *       500:
  *         description: Internal server error
  */
+
 /* Product API */
 //Get all products
 /**
