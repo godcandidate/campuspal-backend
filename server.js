@@ -1051,6 +1051,37 @@ try {
  *       404:
  *         description: Retrieval not successful
  */
+
+
+//Update an item
+/**
+ * @swagger
+ * /founditems/{id}:
+ *   put:
+ *     tags:
+ *     - Lost and Found APIs
+ *     summary: Update details of a found item
+ *     description: Updating item details
+ *     parameters:
+ *     - name: id
+ *       description: Enter tem id
+ *       in: path
+ *       type: string
+ *       required: true
+ *     - name: Update product data
+ *       description: Modify product data
+ *       in: body
+ *       type: string
+ *       required: false
+ *       example: {
+ *              "name": "Tester"
+ *               }
+ *     responses:
+ *       200:
+ *         description: Success
+ *       500:
+ *         description: Internal server error
+ */
 /* ADMIN API */
 //Get all users
 /**
