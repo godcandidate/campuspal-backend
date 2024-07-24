@@ -115,3 +115,27 @@ export async function uploadItemImage(req, res){
         return res.status(500).send({ error: "Item uploading image on firebase failed" });
     }
 }
+
+// delete a found item
+export async function deleteItem(req, res){
+    const itemId = req.params.id;
+  
+    if (!itemId) {
+      return res.status(400).send({ error: 'Missing item ID' });
+    }
+  
+    try {
+      const itemRef = doc(db, "foundItems", itemId);
+      const docSnapshot = await getDoc(itemRef);
+  
+
+      // delete event from firestore
+      await deleteDoc(docSnapshot.ref);
+  
+      res.status(200).send({msg: "Item deleted successfully"});
+      
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({error:"Item deletion failed on firebase"});
+    }
+  }
