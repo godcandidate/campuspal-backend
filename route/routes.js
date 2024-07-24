@@ -5,7 +5,7 @@ import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer, getN
 import { createEvent, getAllEvents, getOrganizerEvents, getNumberOfEvents, getEvent, updateEvent, deleteEvent } from '../controllers/eventController.js';
 import { registerBusiness, getBusiness, getUserBusiness,updateBusiness, deleteBusiness, getAllBusinesses, getNumberOfBusiness, uploadBusinessLogo, getAllOwnerDetails, verifyOwner } from '../controllers/businessController.js';
 import { addProduct, getBusinessProducts, getAllProducts, updateProduct, deleteProduct } from '../controllers/productController.js';
-import {addlostCards, getUserFoundItems, uploadItemImage, updateFoundItem} from '../controllers/lostandfoundController.js'
+import {addlostCards, getUserFoundItems, uploadItemImage, updateFoundItem, deleteItem} from '../controllers/lostandfoundController.js'
 import Auth from '../middleware/auth.js';
 
 // handles files upload
@@ -80,5 +80,6 @@ router.post("/founditems/card", Auth, addlostCards);
 router.get("/founditems/user", Auth, getUserFoundItems);
 router.post("/founditems/upload-picture", upload.single('template'), uploadItemImage);
 router.post("/founditems/:id", updateFoundItem);
+router.delete("/founditems/:id", deleteItem);
 
 export default router;
