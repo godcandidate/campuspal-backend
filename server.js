@@ -1082,6 +1082,27 @@ try {
  *       500:
  *         description: Internal server error
  */
+//Delete product
+/**
+ * @swagger
+ * /founditems/{id}:
+ *   delete:
+ *     tags:
+ *     - Lost and Found APIs
+ *     summary: Delete a found item
+ *     description: Deleting a found item
+ *     parameters:
+ *     - name: id
+ *       description: Enter item id
+ *       in: path
+ *       type: string
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: Success
+ *       500:
+ *         description: Internal server error
+ */
 /* ADMIN API */
 //Get all users
 /**
