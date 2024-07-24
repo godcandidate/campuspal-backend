@@ -10,34 +10,39 @@ export async function addlostCards(req, res){
         const {userId} = req.user;
         const {type, category, index_number, name, dateOfBirth, ref_number} = req.body;
     
+        let imagePath;
+        let imageURL;
         // check the type
         let sdata = {};
         if (type == "studentID"){
             sdata = {
                 index_number: index_number,
-                ref_number: ref_number
+                ref_number: ref_number,
+                imagePath: "template-images/studentId.jpg",
+                imageURL: "https://firebasestorage.googleapis.com/v0/b/cloudfunction-68be4.appspot.com/o/template-images%2FstudentId.jpg?alt=media&token=b7b6cd40-4a23-407d-b731-d1e757c1cffd"
             }
         }
         else if (type == "otherID"){
             sdata = {
                 name: name,
-                dateOfBirth: dateOfBirth
+                dateOfBirth: dateOfBirth,
+                imagePath: "template-images/idcard.jpg",
+                imageURL: "https://firebasestorage.googleapis.com/v0/b/cloudfunction-68be4.appspot.com/o/template-images%2Fidcard.jpg?alt=media&token=e9ce68e1-14e4-4da4-8f16-b6eb3d925b76"
             }
         }
         else{
             return res.status(403).send({ error: "Access denied, can only use studentID or otherID as a type" });
         }
+
         // Item details
         const itemData = {
             founder: userId,
             ...sdata,
             category: category,
             type: type,
-            is_active : true
-            //imagePath: fileData.filePath,
-            //imageURL:fileData.fileURL
+            is_active : true,
         };
-        
+
         // add item to lostitems firestore
         await addDoc(collection(db, "foundItems"), itemData);
         return res.status(200).send({ msg: "Found item added up successfully" });
@@ -85,7 +90,6 @@ export async function updateFoundItem(req, res){
         // Get user data and id 
         const itemData = req.body;
         const itemId = req.params.id;
-        console.log("id: ",itemId);
        
         const itemRef = doc(db, "foundItems", itemId);
         await updateDoc(itemRef, itemData);
@@ -137,5 +141,41 @@ export async function deleteItem(req, res){
     } catch (error) {
       console.log(error);
       res.status(500).send({error:"Item deletion failed on firebase"});
+    }
+  }
+
+//Get all founditems
+export async function getAllFoundItems(req, res) {
+    try {
+      let eventRef = collection(db, "foundItems");
+    
+      let q = collection(db, "foundItems");
+  
+      
+      // Extract query parameters from request
+      const { name, category} = req.query;
+  
+      // Exact matches
+      if (name) {
+        q = query(eventRef, where("name", "==", name));
+      }
+      if (category) {
+        q = query(eventRef, where("category", "==", category));
+      }
+     
+  
+      // Execute the query
+      const querySnapshot = await getDocs(q);
+  
+      // Extract data and IDs
+      const items = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+  
+      res.status(200).send({items});
+    } catch (error) {
+      console.error("Retrieving items:", error); 
+      res.status(500).send({ error: "Items retrieval failed on firebase" });
     }
   }
