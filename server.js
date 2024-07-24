@@ -988,6 +988,32 @@ try {
  *       500:
  *         description: Internal server error
  */
+//Get all items
+/**
+ * @swagger
+ * /founditems:
+ *   get:
+ *     tags:
+ *     - Lost and Found APIs
+ *     summary: Get all items
+ *     description: Retreiving all items
+ *     parameters:
+ *     - name: name
+ *       description: Enter name to filter
+ *       in: query
+ *       type: string
+ *       example: Iphone
+ *     - name: category
+ *       description: Enter category to filter
+ *       in: query
+ *       type: string
+ *       example: Electronics or Fashion
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
 //Add a lost card
 /**
  * @swagger
