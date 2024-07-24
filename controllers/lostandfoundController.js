@@ -77,3 +77,41 @@ export async function getUserFoundItems(req, res){
         return res.status(500).send({ error: "Retrieving business details from firebase failed" });
     } 
 }
+
+// update a lost item
+export async function updateFoundItem(req, res){
+    try {
+  
+        // Get user data and id 
+        const itemData = req.body;
+        const itemId = req.params.id;
+        console.log("id: ",itemId);
+       
+        const itemRef = doc(db, "foundItems", itemId);
+        await updateDoc(itemRef, itemData);
+  
+        return res.status(200).send({ msg: "Item details updated successfully"});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ error: "Item update on firebase failed" });
+    }
+}
+
+// Add image card
+export async function uploadItemImage(req, res){
+    try {
+  
+        const firebasePath = "template-images"
+        // Upload the event image
+      const fileData = await uploadFile(req, res, firebasePath);
+  
+      if (!fileData) {
+        res.status(400).send({ error: "No event image details" });
+      }
+      return res.status(200).send({fileData});
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ error: "Item uploading image on firebase failed" });
+    }
+}
