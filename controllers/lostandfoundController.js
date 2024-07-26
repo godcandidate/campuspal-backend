@@ -9,7 +9,7 @@ export async function addlostCards(req, res){
     try {
         // Get user data and id
         const {userId} = req.user;
-        const {type, category, index_number, name, dateOfBirth, ref_number} = req.body;
+        const {type, category, index_number, name, dateOfBirth, ref_number, cpntact} = req.body;
     
         let imagePath;
         let imageURL;
@@ -41,6 +41,7 @@ export async function addlostCards(req, res){
             ...sdata,
             category: category,
             type: type,
+            contact: contact,
             is_active : true,
         };
 
