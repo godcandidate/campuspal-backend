@@ -1167,6 +1167,30 @@ try {
  *         description: Retrieval not successful
  */
 
+/* Notifications API */
+//Get all notifications for a user
+/**
+ * @swagger
+ * /notifications/user:
+ *   get:
+ *     tags:
+ *     - Notification APIs
+ *     summary: Get all notifications of user
+ *     description: Retreiving all notification of a user
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
 /* ADMIN API */
 //Get all users
 /**
