@@ -1,6 +1,7 @@
 import { arrayUnion, arrayRemove, query,doc, setDoc, addDoc, updateDoc, getDoc, getDocs, collection, deleteDoc, where} from "firebase/firestore";
 import db from "../firestore.js";
 import {uploadFile, deleteFile} from "./assetController.js";
+import { cardMatchNotifier } from "./notificationController.js";
 
 
 //Adding a lost item card
@@ -179,3 +180,58 @@ export async function getAllFoundItems(req, res) {
       res.status(500).send({ error: "Items retrieval failed on firebase" });
     }
   }
+
+//Claim a found item
+export async function claimFoundCard(req, res){
+  const itemId = req.params.id;
+  
+    if (!itemId) {
+      return res.status(400).send({ error: 'Missing item ID' });
+    }
+  
+    try {
+
+      const {ref_number, dateOfBirth} = req.body;
+      
+      //Get item data
+      const itemRef = doc(db, "foundItems", itemId);
+      const docSnapshot = await getDoc(itemRef);
+
+      const item = docSnapshot.data();
+      let name;
+      let istrue;
+        // Item type
+        if (item.type === "studentID" & item.ref_number === ref_number) {
+            istrue = true;
+            name = item.index_number;
+        }
+        else if (item.type === "otherID" & item.dateOfBirth === dateOfBirth){
+            istrue = true;
+            name = item.name;
+        }
+        else{
+            istrue = false;
+        }
+
+        const items = {
+          name: name,
+          contact: item.contact,
+          finderID: item.founder
+        }
+        if (istrue) {
+          
+          // send notification
+          const notifierPromise = cardMatchNotifier(req, res, items);
+          res.status(200).send({ msg: "Item matched, check your notifications" });
+          
+          await notifierPromise;
+        } else {
+          res.status(404).send({ msg: "Item does not match" });
+        }
+  
+    
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({error:"Item deletion failed on firebase"});
+    }
+}
