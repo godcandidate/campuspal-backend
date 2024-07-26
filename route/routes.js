@@ -6,6 +6,8 @@ import { createEvent, getAllEvents, getOrganizerEvents, getNumberOfEvents, getEv
 import { registerBusiness, getBusiness, getUserBusiness,updateBusiness, deleteBusiness, getAllBusinesses, getNumberOfBusiness, uploadBusinessLogo, getAllOwnerDetails, verifyOwner } from '../controllers/businessController.js';
 import { addProduct, getBusinessProducts, getAllProducts, updateProduct, deleteProduct } from '../controllers/productController.js';
 import {addlostCards, getUserFoundItems, uploadItemImage, updateFoundItem, deleteItem, getAllFoundItems, claimFoundCard} from '../controllers/lostandfoundController.js'
+import { getUserNotifications } from '../controllers/notificationController.js';
+
 import Auth from '../middleware/auth.js';
 
 // handles files upload
@@ -83,5 +85,9 @@ router.put("/founditems/:id", updateFoundItem);
 router.delete("/founditems/:id", deleteItem);
 router.get("/founditems", getAllFoundItems);
 router.post("/founditems/claimcard/:id", Auth, claimFoundCard);
+
+
+//Notifications
+router.get("/notifications/user",Auth, getUserNotifications);
 
 export default router;
