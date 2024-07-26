@@ -1129,6 +1129,44 @@ try {
  *       500:
  *         description: Internal server error
  */
+//Get all products for a business
+/**
+ * @swagger
+ * /founditems/claimcard/{id}:
+ *   post:
+ *     tags:
+ *     - Lost and Found APIs
+ *     summary: Claim a found item
+ *     description: User claiming a found item
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *       - name: id
+ *         description: Enter tem id
+ *         in: path
+ *         type: string
+ *         required: true
+ *       - name: Data to match
+ *         description: Data to match found item
+ *         in: body
+ *         type: string
+ *         required: false
+ *         example: {
+ *              "ref_number": "Tester",
+ *              "dateOfBirth": "Tester",
+ *               }
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
+
 /* ADMIN API */
 //Get all users
 /**
@@ -1264,5 +1302,5 @@ try {
  *       200:
  *         description: Success
  *       404:
- *         description: Retrieval not successful
+ *         description: Retrieval not successful 
  */
