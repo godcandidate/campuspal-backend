@@ -6,21 +6,13 @@ import db from "../firestore.js";
 // Create an event
 export async function createEvent(req, res) {
     try {
-      const { userId, userRoles} = req.user;
-
-      // check if user is an organizer
-      /*const isOrganizer = userRoles.includes('organizer');
-      if (!isOrganizer){
-            return res.status(403).send({ error:"Access denied, user not an organizer"});
-        }*/
-
-      const firebasePath = "event-pictures";
+      const { userId} = req.user;
   
       // Upload the event image
       const fileData = await uploadFile(req, res, firebasePath);
   
       if (!fileData) {
-        res.status(403).send({ error: "No event image details" });
+        res.status(400).send({ error: "No event image details" });
       }
 
       //Event details
@@ -106,12 +98,12 @@ export async function getOrganizerEvents(req, res){
         id: doc.id,
         ...doc.data(),
       }));
+
+      if (eventData.length === 0) {
+        return res.status(404).send({ msg: "No organizer events found" });
+      }
       
-      res.status(200).send({
-        msg : "Organizer events retrieved Successfully",
-        count: eventData.length,
-        data: eventData,
-      });
+      res.status(200).send({eventData});
     
   } catch (error) {
     console.log(error);
