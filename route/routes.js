@@ -4,7 +4,7 @@ import {registerUser, loginUser, getUser, updateUser, logoutUser, updateUserProf
 import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer, getNumberOfOrganizers, getAllOrganizerDetails, verifyOrganizer } from '../controllers/organizerController.js';
 import { createEvent, getAllEvents, getOrganizerEvents, getNumberOfEvents, getEvent, updateEvent, deleteEvent } from '../controllers/eventController.js';
 import { registerBusiness, getBusiness, getUserBusiness,updateBusiness, deleteBusiness, getAllBusinesses, getNumberOfBusiness, uploadBusinessLogo, getAllOwnerDetails, verifyOwner } from '../controllers/businessController.js';
-import { addProduct, getBusinessProducts, getAllProducts, updateProduct, deleteProduct } from '../controllers/productController.js';
+import { addProduct, getBusinessProducts, getAllProducts, updateProduct, deleteProduct, getProduct } from '../controllers/productController.js';
 import {addlostCards, getUserFoundItems, uploadItemImage, updateFoundItem, deleteItem, getAllFoundItems, claimFoundCard} from '../controllers/lostandfoundController.js'
 import { getUserNotifications } from '../controllers/notificationController.js';
 
@@ -65,6 +65,7 @@ router.post("/business/verify", Auth, verifyOwner);
 router.post("/products/add", Auth, upload.single('productImage'), addProduct);
 router.get("/products/business", Auth, getBusinessProducts);
 router.get("/products/all", getAllProducts);
+router.get("/products/:id", getProduct);
 router.put("/products/:id", updateProduct);
 router.delete("/products/:id", deleteProduct);
 
