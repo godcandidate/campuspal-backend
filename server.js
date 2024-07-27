@@ -860,6 +860,27 @@ try {
  *       404:
  *         description: Retrieval not successful
  */
+//View product
+/**
+ * @swagger
+ * /products/{id}:
+ *   get:
+ *     tags:
+ *     - Product APIs
+ *     summary: View product
+ *     description: Viewing a product
+ *     parameters:
+ *     - name: id
+ *       description: Enter product id
+ *       in: path
+ *       type: string
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: Success
+ *       500:
+ *         description: Internal server error
+ */
 //Add a product
 /**
  * @swagger
