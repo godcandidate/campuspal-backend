@@ -109,6 +109,34 @@ export async function getAllProducts(req, res) {
     }
   }
 
+// view  all details of a product
+export async function getProduct(req, res){
+  try {
+
+      // Get id 
+      const productId = req.params.id;
+      
+      const productRef = doc(db, "products", productId);
+      const productSnap = await getDoc(productRef);
+
+      // Product details
+      const product = productSnap.data();
+      const businessId = product.businessID;
+
+      //Organizer details
+      const businessRef = doc(db, "businesss", businessId);
+      const businessSnap = await getDoc(businessRef);
+      const business = businessSnap.data();
+      
+      return res.status(200).send({...product, ...business});
+      
+  } catch (error) {
+      console.log(error);
+      return res.status(500).send({ error: "Event retrieval failed on firebase failed" });
+  }
+}
+
+
 //update a product
 export async function updateProduct(req, res){
     try {
@@ -132,7 +160,7 @@ export async function deleteProduct(req, res){
     const productId = req.params.id;
   
     if (!productId) {
-      return res.status(400).send({ error: 'Missing event ID' });
+      return res.status(400).send({ error: 'Missing item ID' });
     }
   
     try {
