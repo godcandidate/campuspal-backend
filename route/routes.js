@@ -71,11 +71,12 @@ router.delete("/products/:id", deleteProduct);
 
 // Events route
 router.get("/events/all", getAllEvents);
+router.get("/events/organizer", Auth, getOrganizerEvents);
+router.post("/events/add", Auth, upload.single('eventImage'),createEvent);
 router.get("/events/:id", getEvent);
 router.put("/events/:id", updateEvent);
 router.delete("/events/:id", deleteEvent);
-router.post("/events/add", Auth, upload.single('eventImage'),createEvent);
-router.get("/events/organizer", Auth, getOrganizerEvents);
+
 
 // Lost and found routes
 router.post("/founditems/card", Auth, addlostCards);
