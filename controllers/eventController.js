@@ -137,12 +137,16 @@ export async function getEvent(req, res){
       const userRef = doc(db, "events", eventId);
       const userSnap = await getDoc(userRef);
 
-        // Organizer exists
-        if (userSnap.exists()) {
-            return res.status(200).send(userSnap.data());
-        }
+      // Event details
+      const event = userSnap.data();
+      const organizerId = event.creator;
+
+      //Organizer details
+      const organizerRef = doc(db, "organizers", organizerId);
+      const organizerSnap = await getDoc(organizerRef);
+      const organizer = organizerSnap.data();
       
-        return res.status(404).send({msg:"Event not found"});
+      return res.status(200).send({...event, ...organizer});
       
   } catch (error) {
       console.log(error);
