@@ -185,3 +185,19 @@ export async function deleteProduct(req, res){
     }
   }
   
+// Get total number of products
+export async function getNumberOfProducts(req, res){
+  try {
+    
+      const querySnapshot = await getDocs(collection(db, "products"));
+      const productCount = querySnapshot.size;
+  
+      res.status(200).send({
+        total_product: productCount
+      });
+
+  } catch (error) {
+      console.log(error);
+    res.status(500).send({ error: "Number of products retrieval failed" });
+  }
+}
