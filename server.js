@@ -1385,3 +1385,19 @@ try {
  *       404:
  *         description: Retrieval not successful 
  */
+/* Admin APIs/ Lost and found */
+//Get all found items
+/**
+ * @swagger
+ * /foundItems/all:
+ *   get:
+ *     tags:
+ *     - Admin APIs/ Lost and found
+ *     summary: Get total number of products
+ *     description: Retreiving number of products available
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful 
+ */
