@@ -236,3 +236,20 @@ export async function claimFoundCard(req, res){
       res.status(500).send({error:"Item deletion failed on firebase"});
     }
 }
+
+//Number of found items
+export async function getNumberOfFoundItems(req, res){
+  try {
+    
+      const querySnapshot = await getDocs(collection(db, "foundItems"));
+      const itemsCount = querySnapshot.size;
+  
+      res.status(200).send({
+        total_items: itemsCount
+      });
+
+  } catch (error) {
+      console.log(error);
+    res.status(500).send({ error: "Number of found items retrieval failed" });
+  }
+}
