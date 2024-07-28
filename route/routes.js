@@ -5,7 +5,7 @@ import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer, getN
 import { createEvent, getAllEvents, getOrganizerEvents, getNumberOfEvents, getEvent, updateEvent, deleteEvent } from '../controllers/eventController.js';
 import { registerBusiness, getBusiness, getUserBusiness,updateBusiness, deleteBusiness, getAllBusinesses, getNumberOfBusiness, uploadBusinessLogo, getAllOwnerDetails, verifyOwner } from '../controllers/businessController.js';
 import { addProduct, getBusinessProducts, getNumberOfProducts, getAllProducts, updateProduct, deleteProduct, getProduct } from '../controllers/productController.js';
-import {addlostCards, getUserFoundItems, uploadItemImage, updateFoundItem, deleteItem, getAllFoundItems, claimFoundCard} from '../controllers/lostandfoundController.js'
+import {addlostCards, getUserFoundItems, uploadItemImage, updateFoundItem, deleteItem, getAllFoundItems, claimFoundCard, getNumberOfFoundItems} from '../controllers/lostandfoundController.js'
 import { getUserNotifications } from '../controllers/notificationController.js';
 
 import Auth from '../middleware/auth.js';
@@ -20,19 +20,21 @@ router.get('/', (req, res) => {
   res.status(201).json("Home GET Request");
 });
 
-// Administrative routes
+/* ADMINSTRATIVE ROUTES */
 //Main dashbaord
 router.get("/users/all", getTotalUsers);
 router.get("/users/count", getTotalNormalUsers);
-router.get("/events/count", getNumberOfEvents);
 router.get("/organizers/count", getNumberOfOrganizers);
 router.get("/users", getAllUsers);
+router.get("/foundItems/count", getNumberOfFoundItems);
 
 
 //Events
 router.get("/organizers", getAllOrganizerDetails);
+router.get("/events/count", getNumberOfEvents);
 
 //Businesses
+router.get("/business", getAllOwnerDetails);
 router.get("/business/count", getNumberOfBusiness);
 router.get("/products/count", getNumberOfProducts);
 
@@ -40,9 +42,7 @@ router.get("/products/count", getNumberOfProducts);
 
 
 
-router.get("/business", getAllOwnerDetails);
-
-
+/* SPECIFIC ROUTES */
 // User routes
 router.post("/users/register", registerUser);
 router.post("/users/login", loginUser);
