@@ -4,7 +4,7 @@ import {registerUser, loginUser, getUser, updateUser, logoutUser, updateUserProf
 import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer, getNumberOfOrganizers, getAllOrganizerDetails, verifyOrganizer } from '../controllers/organizerController.js';
 import { createEvent, getAllEvents, getOrganizerEvents, getNumberOfEvents, getEvent, updateEvent, deleteEvent } from '../controllers/eventController.js';
 import { registerBusiness, getBusiness, getUserBusiness,updateBusiness, deleteBusiness, getAllBusinesses, getNumberOfBusiness, uploadBusinessLogo, getAllOwnerDetails, verifyOwner } from '../controllers/businessController.js';
-import { addProduct, getBusinessProducts, getAllProducts, updateProduct, deleteProduct, getProduct } from '../controllers/productController.js';
+import { addProduct, getBusinessProducts, getNumberOfProducts, getAllProducts, updateProduct, deleteProduct, getProduct } from '../controllers/productController.js';
 import {addlostCards, getUserFoundItems, uploadItemImage, updateFoundItem, deleteItem, getAllFoundItems, claimFoundCard} from '../controllers/lostandfoundController.js'
 import { getUserNotifications } from '../controllers/notificationController.js';
 
@@ -21,13 +21,25 @@ router.get('/', (req, res) => {
 });
 
 // Administrative routes
+//Main dashbaord
 router.get("/users/all", getTotalUsers);
 router.get("/users/count", getTotalNormalUsers);
 router.get("/events/count", getNumberOfEvents);
 router.get("/organizers/count", getNumberOfOrganizers);
-router.get("/business/count", getNumberOfBusiness);
 router.get("/users", getAllUsers);
+
+
+//Events
 router.get("/organizers", getAllOrganizerDetails);
+
+//Businesses
+router.get("/business/count", getNumberOfBusiness);
+router.get("/products/count", getNumberOfProducts);
+
+//Lost and found
+
+
+
 router.get("/business", getAllOwnerDetails);
 
 
