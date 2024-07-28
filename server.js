@@ -1340,9 +1340,24 @@ try {
  * /business:
  *   get:
  *     tags:
- *     - Admin APIs/ details
+ *     - Admin APIs/ Business
  *     summary: Get all business
  *     description: Retreiving all business owners, names and number of products posted for all users
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful 
+ */
+//Get all products
+/**
+ * @swagger
+ * /products/count:
+ *   get:
+ *     tags:
+ *     - Admin APIs/ Business
+ *     summary: Get total number of products
+ *     description: Retreiving number of products available
  *     responses:
  *       200:
  *         description: Success
