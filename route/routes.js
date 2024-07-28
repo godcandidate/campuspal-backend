@@ -5,7 +5,7 @@ import { registerOrganizer, getOrganizer, updateOrganizer, removeOrganizer, getN
 import { createEvent, getAllEvents, getOrganizerEvents, getNumberOfEvents, getEvent, updateEvent, deleteEvent } from '../controllers/eventController.js';
 import { registerBusiness, getBusiness, getUserBusiness,updateBusiness, deleteBusiness, getAllBusinesses, getNumberOfBusiness, uploadBusinessLogo, getAllOwnerDetails, verifyOwner } from '../controllers/businessController.js';
 import { addProduct, getBusinessProducts, getNumberOfProducts, getAllProducts, updateProduct, deleteProduct, getProduct } from '../controllers/productController.js';
-import {addlostCards, getUserFoundItems, uploadItemImage, updateFoundItem, deleteItem, getAllFoundItems, claimFoundCard, getNumberOfFoundItems} from '../controllers/lostandfoundController.js'
+import {addlostCards, getUserFoundItems, uploadItemImage, updateFoundItem, deleteItem, getAllFoundItems, claimFoundCard, getNumberOfFoundItems, getAllFoundItemsDetail} from '../controllers/lostandfoundController.js'
 import { getUserNotifications } from '../controllers/notificationController.js';
 
 import Auth from '../middleware/auth.js';
@@ -39,7 +39,7 @@ router.get("/business/count", getNumberOfBusiness);
 router.get("/products/count", getNumberOfProducts);
 
 //Lost and found
-
+router.get("/foundItems/all", getAllFoundItemsDetail);
 
 
 /* SPECIFIC ROUTES */
