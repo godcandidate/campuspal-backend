@@ -253,3 +253,41 @@ export async function getNumberOfFoundItems(req, res){
     res.status(500).send({ error: "Number of found items retrieval failed" });
   }
 }
+
+//Get founditems details
+export async function getAllFoundItemsDetail(req, res) {
+    try {
+        const itemRef = collection(db, "foundItems");
+        const itemSnapshots = await getDocs(itemRef);
+        const items = [];
+    
+        for (const itemSnapshot of itemSnapshots.docs) {
+            const userId = itemSnapshot.data().founder;
+
+            //Get user ref
+            const userRef = doc(db, "users", userId);
+            const userSnap = await getDoc(userRef);
+
+
+            if (!userSnap.exists) {
+                continue; // Skip if user not found
+            }
+        
+            // Get finder name, category, type, unique name, isclaimed
+            const userName = userSnap.data().name;
+            const uniqueData = itemSnapshot.data().name || itemSnapshot.data().index_number ;
+            const category = itemSnapshot.data().category;
+            const type = itemSnapshot.data().type;
+            const claimed = itemSnapshot.data().is_active;
+        
+            items.push({ finder: userName, uniqueData, category, type, claimed });
+        }
+        
+        return res.status(200).send({ items});
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ error: "Getting found items details failed on firebase"});
+        
+    } 
+  }
