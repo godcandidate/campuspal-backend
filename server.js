@@ -1212,30 +1212,19 @@ try {
  *       404:
  *         description: Retrieval not successful
  */
-/* ADMIN API */
+
+
+                                                /* ADMIN API */
+
+/* Admin APIs/ dashbaord */
 //Get all users
 /**
  * @swagger
  * /users/all:
  *   get:
  *     tags:
- *     - Admin APIs/ count
- *     summary: Get all users
- *     description: Retreiving all users
- *     responses:
- *       200:
- *         description: Success
- *       404:
- *         description: Retrieval not successful
- */
-//Get normal user
-/**
- * @swagger
- * /users/all:
- *   get:
- *     tags:
- *     - Admin APIs/ count
- *     summary: Get number of all users
+ *     - Admin APIs/ dashboard
+ *     summary: Get number of  users
  *     description: Retreiving total number of users
  *     responses:
  *       200:
@@ -1249,7 +1238,7 @@ try {
  * /users/count:
  *   get:
  *     tags:
- *     - Admin APIs/ count
+ *     - Admin APIs/ dashboard
  *     summary: Get number of normal users
  *     description: Retreiving total number of normal users
  *     responses:
@@ -1264,7 +1253,7 @@ try {
  * /organizers/count:
  *   get:
  *     tags:
- *     - Admin APIs/ count
+ *     - Admin APIs/ dashboard
  *     summary: Get number of organizers
  *     description: Retreiving total number of organizers
  *     responses:
@@ -1279,7 +1268,7 @@ try {
  * /events/count:
  *   get:
  *     tags:
- *     - Admin APIs/ count
+ *     - Admin APIs/ dashboard
  *     summary: Get total number of events
  *     description: Retreiving total number of events
  *     responses:
@@ -1288,29 +1277,13 @@ try {
  *       404:
  *         description: Retrieval not successful
  */
-//Get all business
-/**
- * @swagger
- * /business/count:
- *   get:
- *     tags:
- *     - Admin APIs/ count
- *     summary: Get total number of business
- *     description: Retreiving total number of business
- *     responses:
- *       200:
- *         description: Success
- *       404:
- *         description: Retrieval not successful
- */
-/* Details */
 //Get all user details
 /**
  * @swagger
  * /users:
  *   get:
  *     tags:
- *     - Admin APIs/ details
+ *     - Admin APIs/ dashboard
  *     summary: Get all users
  *     description: Retreiving names, emails and phone numbers for all users
  *     responses:
@@ -1319,13 +1292,30 @@ try {
  *       404:
  *         description: Retrieval not successful
  */
+//Get all found items
+/**
+ * @swagger
+ * /foundItems/count:
+ *   get:
+ *     tags:
+ *     - Admin APIs/ dashboard
+ *     summary: Get number of  found items
+ *     description: Retreiving total number of found items
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
+
+/* Admin APIs/ Organization */
 //Get all organizers
 /**
  * @swagger
  * /organizers:
  *   get:
  *     tags:
- *     - Admin APIs/ details
+ *     - Admin APIs/ Organization
  *     summary: Get all organizers
  *     description: Retreiving organizer names, organization name and number of events posted for all users
  *     responses:
@@ -1334,7 +1324,38 @@ try {
  *       404:
  *         description: Retrieval not successful
  */
-//Get all business details
+//Get all events
+/**
+ * @swagger
+ * /events/count:
+ *   get:
+ *     tags:
+ *     - Admin APIs/ Organization
+ *     summary: Get number of events posted
+ *     description: Retreiving number of events available
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
+
+/* Admin APIs/ Business */
+//Get all number of business
+/**
+ * @swagger
+ * /business/count:
+ *   get:
+ *     tags:
+ *     - Admin APIs/ Business
+ *     summary: Get total number of business
+ *     description: Retreiving total number of business
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
 /**
  * @swagger
  * /business:
