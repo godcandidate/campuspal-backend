@@ -7,6 +7,7 @@ import db from "../firestore.js";
 export async function createEvent(req, res) {
     try {
       const { userId} = req.user;
+      const firebasePath = "events";
   
       // Upload the event image
       const fileData = await uploadFile(req, res, firebasePath);
