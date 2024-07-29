@@ -66,11 +66,10 @@ export async function loginUser(req, res){
         // Create a Access token
         const accesstoken = jwt.sign(
             {
-                userId: user.uid,
-                userRoles: userSnap.data().roles
+                userId: user.uid
             },
             process.env.JWT_ACCESS_TOKEN,
-            { expiresIn: "24h" }
+            { expiresIn: "72h" }
         );
 
        /* // Create a Access token
@@ -84,7 +83,7 @@ export async function loginUser(req, res){
        
        
         return res.status(200).send({ msg: "User logged in successfully", name: username,
-        accesstoken, userRoles: userSnap.data().roles});
+        accesstoken});
         
         
     } catch (error) {
@@ -233,13 +232,16 @@ export async function changePassword(req, res){
     
     const {email} = req.body;
 
+    // sending email
+    await sendPasswordResetEmail(email);
+
     res.status(200).send({
-      total_users: userCount
+      msg:"Email has been sent, check to change password"
     });
 
   } catch (error) {
     console.log(error);
-    res.status(500).send({ error: "Users retrieval failed" });
+    res.status(500).send({ error: "Password reset failed" });
   }
 
 }
@@ -267,4 +269,4 @@ export async function getAllUsers(req, res) {
 }
 
 
-
+      
