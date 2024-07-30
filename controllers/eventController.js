@@ -145,7 +145,9 @@ export async function getEvent(req, res){
       //Organizer details
       const organizerRef = doc(db, "organizers", organizerId);
       const organizerSnap = await getDoc(organizerRef);
-      const organizer = organizerSnap.data();
+      const organizer = {
+        organization: organizerSnap.data().name,
+      };
       
       return res.status(200).send({...event, ...organizer});
       
