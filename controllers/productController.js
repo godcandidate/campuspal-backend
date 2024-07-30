@@ -123,10 +123,15 @@ export async function getProduct(req, res){
       const product = productSnap.data();
       const businessId = product.businessID;
 
-      //Organizer details
-      const businessRef = doc(db, "businesss", businessId);
+      //Business details
+      const businessRef = doc(db, "business", businessId);
       const businessSnap = await getDoc(businessRef);
-      const business = businessSnap.data();
+      const business = {
+        business_name: businessSnap.data().name,
+        business_contact: businessSnap.data().contact,
+        business_location: businessSnap.data().address
+      };
+
       
       return res.status(200).send({...product, ...business});
       
