@@ -1213,6 +1213,46 @@ try {
  *         description: Retrieval not successful
  */
 
+/* REPORT */
+//Add a report
+/**
+ * @swagger
+ * /reports/add:
+ *   post:
+ *     tags:
+ *     - Report APIs
+ *     summary: Report an Object
+ *     description: Reporting an object
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *       - name: id
+ *         description: Enter tem id
+ *         in: path
+ *         type: string
+ *         required: true
+ *       - name: Data to match
+ *         description: Data to match found item
+ *         in: body
+ *         type: string
+ *         required: false
+ *         example: {
+ *              "objectId": "Tester",
+ *              "type": "Event",
+ *              "message": "",
+ *              "date": "31/07/2024",
+ *               }
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
 
                                                 /* ADMIN API */
 
