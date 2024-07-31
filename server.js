@@ -1242,11 +1242,33 @@ try {
  *         type: string
  *         required: false
  *         example: {
- *              "objectId": "Tester",
+ *              "objectId": "",
  *              "type": "Event",
  *              "message": "",
  *              "date": "31/07/2024",
  *               }
+ *     responses:
+ *       200:
+ *         description: Success
+ *       404:
+ *         description: Retrieval not successful
+ */
+/* Product API */
+//Get all products
+/**
+ * @swagger
+ * /reports/all:
+ *   get:
+ *     tags:
+ *     - Report APIs
+ *     summary: Get all products
+ *     description: Retreiving all products
+ *     parameters:
+ *     - name: type
+ *       description: Enter type to filter(Event, Product, Item)
+ *       in: query
+ *       type: string
+ *       example: Event
  *     responses:
  *       200:
  *         description: Success
