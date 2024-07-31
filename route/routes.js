@@ -104,4 +104,7 @@ router.post("/founditems/claimcard/:id", Auth, claimFoundCard);
 //Notifications
 router.get("/notifications/user",Auth, getUserNotifications);
 
+//Reports
+router.get("/reports/add",Auth, getUserNotifications);
+
 export default router;
