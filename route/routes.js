@@ -6,6 +6,7 @@ import { createEvent, getAllEvents, getOrganizerEvents, getNumberOfEvents, getEv
 import { registerBusiness, getBusiness, getUserBusiness,updateBusiness, deleteBusiness, getAllBusinesses, getNumberOfBusiness, uploadBusinessLogo, getAllOwnerDetails, verifyOwner } from '../controllers/businessController.js';
 import { addProduct, getBusinessProducts, getNumberOfProducts, getAllProducts, updateProduct, deleteProduct, getProduct } from '../controllers/productController.js';
 import {addlostCards, getUserFoundItems, uploadItemImage, updateFoundItem, deleteItem, getAllFoundItems, claimFoundCard, getNumberOfFoundItems, getAllFoundItemsDetail} from '../controllers/lostandfoundController.js'
+import { createReport, getAllReports } from '../controllers/reportController.js';
 import { getUserNotifications } from '../controllers/notificationController.js';
 
 import Auth from '../middleware/auth.js';
@@ -105,6 +106,7 @@ router.post("/founditems/claimcard/:id", Auth, claimFoundCard);
 router.get("/notifications/user",Auth, getUserNotifications);
 
 //Reports
-router.get("/reports/add",Auth, getUserNotifications);
+router.post("/reports/add", Auth, createReport);
+router.get("/reports/all", getAllReports);
 
 export default router;
